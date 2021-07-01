@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <!-- <rosparam file="$(find barrett_moveit_v2)/config/ros_controllers.yaml" command="load"/> -->
+  <rosparam file="$(find barrett_moveit_v2)/config/ros_cntlrs.yaml" command="load"/>
+  <!-- added: -->
+  <rosparam file="$(find barrett_moveit_v2)/config/gaz_cntlrs.yaml" command="load"/>
+
+  <!-- Load the controllers -->
+  <!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="arm_position_controller hand_position_controller "/> -->
+  <!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="joint_state_controller arm"/> -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="arm joint_state_controller"/>
+
+</launch>

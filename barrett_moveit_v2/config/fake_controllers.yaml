@@ -1,0 +1,122 @@
+controller_list:
+  - name: fake_warm_controller
+    joints:
+      - wam/base_yaw_joint
+      - wam/shoulder_pitch_joint
+      - wam/shoulder_yaw_joint
+      - wam/elbow_pitch_joint
+      - wam/wrist_yaw_joint
+      - wam/wrist_pitch_joint
+      - wam/palm_yaw_joint
+  - name: fake_bhand_controller
+    joints:
+      - wam/bhand/finger_1/prox_joint
+      - wam/bhand/finger_1/med_joint
+      - wam/bhand/finger_1/dist_joint
+      - wam/bhand/finger_2/prox_joint
+      - wam/bhand/finger_2/med_joint
+      - wam/bhand/finger_2/dist_joint
+      - wam/bhand/finger_3/med_joint
+      - wam/bhand/finger_3/dist_joint
+initial:  # Define initial robot poses.
+  - group: warm
+    pose: upright
+  - group: bhand
+    pose: open_def
+    
+#added
+#arm_controller:
+#  type: position_controllers/JointTrajectoryController
+#  joints:
+#      - wam/base_yaw_joint
+#      - wam/shoulder_pitch_joint
+#      - wam/shoulder_yaw_joint
+#      - wam/elbow_pitch_joint
+#      - wam/wrist_yaw_joint
+#      - wam/wrist_pitch_joint
+#      - wam/palm_yaw_joint
+#      
+#      - wam/bhand/finger_1/prox_joint
+#      - wam/bhand/finger_1/med_joint
+#      - wam/bhand/finger_1/dist_joint
+#      - wam/bhand/finger_2/prox_joint
+#      - wam/bhand/finger_2/med_joint
+#      - wam/bhand/finger_2/dist_joint
+#      - wam/bhand/finger_3/med_joint
+#      - wam/bhand/finger_3/dist_joint
+#  constraints:
+#      goal_time: 0.6
+#      stopped_velocity_tolerance: 0.05
+#     stop_trajectory_duration: 0.5
+#     state_publish_rate: 25
+#     action_monitor_rate: 10
+#joint_group_position_controller:
+#  type: position_controllers/JointGroupPositionController
+#  joints:
+#    - wam/base_yaw_joint
+#    - wam/shoulder_pitch_joint
+#    - wam/shoulder_yaw_joint
+#    - wam/elbow_pitch_joint
+#    - wam/wrist_yaw_joint
+#    - wam/wrist_pitch_joint
+#    - wam/palm_yaw_joint
+#      
+#    - wam/bhand/finger_1/prox_joint
+#    - wam/bhand/finger_1/med_joint
+#    - wam/bhand/finger_1/dist_joint
+#    - wam/bhand/finger_2/prox_joint
+#    - wam/bhand/finger_2/med_joint
+#    - wam/bhand/finger_2/dist_joint
+#    - wam/bhand/finger_3/med_joint
+#    - wam/bhand/finger_3/dist_joint
+#initial:  # Define initial robot poses.
+#  - group: warm
+#    pose: upright
+#  - group: bhand
+#    pose: open_def
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 100
+    # Position Controllers ---------------------------------------
+# Control all joints
+arm:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - wam/base_yaw_joint
+    - wam/shoulder_pitch_joint
+    - wam/shoulder_yaw_joint
+    - wam/elbow_pitch_joint
+    - wam/wrist_yaw_joint
+    - wam/wrist_pitch_joint
+    - wam/palm_yaw_joint
+  gains:
+      # wam/base_yaw_joint: { p: 12000, d: 50, i: 0.0, i_clamp: 10000 }
+      # wam/shoulder_pitch_joint: { p: 30000, d: 100, i: 0.02, i_clamp: 10000 }
+      # wam/shoulder_yaw_joint: { p: 18000, d: 50, i: 0.01, i_clamp: 1 }
+      # wam/elbow_pitch_joint: { p: 18000, d: 70, i: 0.01, i_clamp: 10000 }
+      # wam/wrist_yaw_joint: { p: 12000, d: 70, i: 0.01, i_clamp: 1 }
+      # wam/wrist_pitch_joint: { p: 7000, d: 50, i: 0.01, i_clamp: 1 }
+      # wam/palm_yaw_joint: { p: 2000, d: 20, i: 0.0, i_clamp: 1 }
+    # wam/base_yaw_joint: { p: 100, d: 0.0, i: 0.0 }
+    # wam/shoulder_pitch_joint: { p: 100, d: 0.0, i: 0.0 }
+    # wam/shoulder_yaw_joint: { p: 100, d: 0.0, i: 0.0  }
+    # wam/elbow_pitch_joint: { p: 100, d: 0.0, i: 0.0 }
+    # wam/wrist_yaw_joint: { p: 100, d: 0.0, i: 0.0  }
+    # wam/wrist_pitch_joint: { p: 100, d: 0.0, i: 0.0  }
+    # wam/palm_yaw_joint: { p: 100, d: 0.0, i: 0.0  }
+    wam/base_yaw_joint: { p: 10000, d: 0.0, i: 0.0 }
+    wam/shoulder_pitch_joint: { p: 10000, d: 0.0, i: 0.0 }
+    wam/shoulder_yaw_joint: { p: 10000, d: 0.0, i: 0.0  }
+    wam/elbow_pitch_joint: { p: 10000, d: 0.0, i: 0.0 }
+    wam/wrist_yaw_joint: { p: 10000, d: 0.0, i: 0.0  }
+    wam/wrist_pitch_joint: { p: 10000, d: 0.0, i: 0.0  }
+    wam/palm_yaw_joint: { p: 10000, d: 0.0, i: 0.0  }
+
+  state_publish_rate: 100
+
+  # gains:
+  #   plat_joint: {p: 100, i: 0.0, d: 0}
+  #   shoulder_joint: {p: 100, i: 0.0, d: 0}
+  #   forearm_joint: {p: 100, i: 0.0, d: 0}
+  #   wrist_joint: {p: 100, i: 0.0, d: 0}

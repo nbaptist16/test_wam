@@ -1,0 +1,76 @@
+controller_list:
+  - name: fake_warm_controller
+    joints:
+      - wam/base_yaw_joint
+      - wam/shoulder_pitch_joint
+      - wam/shoulder_yaw_joint
+      - wam/elbow_pitch_joint
+      - wam/wrist_yaw_joint
+      - wam/wrist_pitch_joint
+      - wam/palm_yaw_joint
+  - name: fake_bhand_controller
+    joints:
+      - wam/bhand/finger_1/prox_joint
+      - wam/bhand/finger_1/med_joint
+      - wam/bhand/finger_1/dist_joint
+      - wam/bhand/finger_2/prox_joint
+      - wam/bhand/finger_2/med_joint
+      - wam/bhand/finger_2/dist_joint
+      - wam/bhand/finger_3/med_joint
+      - wam/bhand/finger_3/dist_joint
+initial:  # Define initial robot poses.
+  - group: warm
+    pose: upright
+  - group: bhand
+    pose: open_def
+    
+#added
+#arm_controller:
+#  type: position_controllers/JointTrajectoryController
+#  joints:
+#      - wam/base_yaw_joint
+#      - wam/shoulder_pitch_joint
+#      - wam/shoulder_yaw_joint
+#      - wam/elbow_pitch_joint
+#      - wam/wrist_yaw_joint
+#      - wam/wrist_pitch_joint
+#      - wam/palm_yaw_joint
+#      
+#      - wam/bhand/finger_1/prox_joint
+#      - wam/bhand/finger_1/med_joint
+#      - wam/bhand/finger_1/dist_joint
+#      - wam/bhand/finger_2/prox_joint
+#      - wam/bhand/finger_2/med_joint
+#      - wam/bhand/finger_2/dist_joint
+#      - wam/bhand/finger_3/med_joint
+#      - wam/bhand/finger_3/dist_joint
+#  constraints:
+#      goal_time: 0.6
+#      stopped_velocity_tolerance: 0.05
+#     stop_trajectory_duration: 0.5
+#     state_publish_rate: 25
+#     action_monitor_rate: 10
+#joint_group_position_controller:
+#  type: position_controllers/JointGroupPositionController
+#  joints:
+#    - wam/base_yaw_joint
+#    - wam/shoulder_pitch_joint
+#    - wam/shoulder_yaw_joint
+#    - wam/elbow_pitch_joint
+#    - wam/wrist_yaw_joint
+#    - wam/wrist_pitch_joint
+#    - wam/palm_yaw_joint
+#      
+#    - wam/bhand/finger_1/prox_joint
+#    - wam/bhand/finger_1/med_joint
+#    - wam/bhand/finger_1/dist_joint
+#    - wam/bhand/finger_2/prox_joint
+#    - wam/bhand/finger_2/med_joint
+#    - wam/bhand/finger_2/dist_joint
+#    - wam/bhand/finger_3/med_joint
+#    - wam/bhand/finger_3/dist_joint
+#initial:  # Define initial robot poses.
+#  - group: warm
+#    pose: upright
+#  - group: bhand
+#    pose: open_def

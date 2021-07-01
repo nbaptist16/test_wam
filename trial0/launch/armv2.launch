@@ -1,0 +1,78 @@
+<launch>
+    <!-- taken from arm.launch @ hw3 (q1)...which of course was taken from moveit_interface.launch
+    /home/nckmlb/nuws/src/interbotix_ros_arms/interbotix_examples/interbotix_moveit_interface/launch/ -->
+  <arg name="robot_name"                  default="wam"/> <!-- og:px100 -->
+  <arg name="arm_operating_mode"          default="position"/> <!-- og:position -->
+  <arg name="arm_profile_velocity"        default="1"/> <!-- og:131; new from joint_limits.yaml @ barrett_moveit -->
+  <arg name="arm_profile_acceleration"    default="0.25"/> <!-- og:15; new from " -->
+  <arg name="use_pid_cntlrs"              default="false"/> <!-- og:false -->
+  <arg name="use_gazebo"                  default="false"/> <!-- og:false -->
+  <arg name="use_actual"                  default="true"/> <!-- og:true -->
+  <arg name="use_fake"                    default="false"/> <!-- og:false -->
+  <!-- <arg name="use_actual"                  default="false"/>
+  <arg name="use_fake"                    default="true"/> -->
+  <arg name="dof"                         default="7"/> <!-- og:4 -->
+  <arg name="use_cpp_interface"           default="false"/> <!-- og:false -->
+  <!-- <arg name="moveit_interface_gui"        default="false"/> -->
+  <arg name="moveit_interface_gui"        default="true"/> <!-- og:true -->
+  <arg name="use_python_interface"        default="true"/> <!-- og:true -->
+
+  <include file="$(find barrett_moveit)/barrett_wam_moveit_config/launch/demo.launch"> <!-- og:$(find interbotix_moveit)/launch/interbotix_moveit.launch -->
+    <arg name="robot_name"                value="$(arg robot_name)"/> <!-- og:px100 -->
+    <arg name="arm_operating_mode"        value="$(arg arm_operating_mode)"/> <!-- og:px100 -->
+    <arg name="arm_profile_velocity"      value="$(arg arm_profile_velocity)"/> <!-- og:px100 -->
+    <arg name="arm_profile_acceleration"  value="$(arg arm_profile_acceleration)"/> <!-- og:px100 -->
+    <arg name="use_pid_cntlrs"            value="$(arg use_pid_cntlrs)"/> <!-- og:px100 -->
+    <arg name="use_gazebo"                value="$(arg use_gazebo)"/> <!-- og:px100 -->
+    <arg name="use_actual"                value="$(arg use_actual)"/> <!-- og:px100 -->
+    <arg name="use_fake"                  value="$(arg use_fake)"/> <!-- og:px100 -->
+    <arg name="dof"                       value="$(arg dof)"/> <!-- og:px100 -->
+  </include>
+
+  <rosparam command="load" file="$(find arm_move)/config/waypoints.yaml" />
+
+  <group if="$(arg use_cpp_interface)">
+
+    <node
+      name="movercpp"
+      pkg="interbotix_moveit_interface"
+      type="mover"
+      respawn="false"
+      output="screen"
+      ns="$(arg robot_name)"/>
+
+    <node if="$(arg moveit_interface_gui)"
+      name="moveit_interface_gui"
+      pkg="interbotix_moveit_interface"
+      type="moveit_interface_gui"
+      output="screen"
+      ns="$(arg robot_name)"/>
+
+  </group>
+
+  <!-- <node if="$(arg use_python_interface)"
+    name="moveit_python_interface"
+    pkg="interbotix_moveit_interface"
+    type="moveit_python_interface"
+    respawn="false"
+    output="screen"
+    ns="$(arg robot_name)">
+    <param name="robot_name" value="$(arg robot_name)"/>
+    <param name="dof" value="$(arg dof)"/>
+    <remap from="/attached_collision_object" to="/$(arg robot_name)/attached_collision_object"/>
+    <remap from="/collision_object" to="/$(arg robot_name)/collision_object"/>
+  </node> -->
+
+  <node if="$(arg use_python_interface)"
+    name="mover"
+    pkg="arm_move"
+    type="mover"
+    respawn="false"
+    output="screen"
+    ns="$(arg robot_name)">
+    <remap from="/attached_collision_object" to="/$(arg robot_name)/attached_collision_object"/>
+    <remap from="/collision_object" to="/$(arg robot_name)/collision_object"/>
+    <rosparam param="pos" command="load" file="$(find arm_move)/config/waypoints.yaml" />
+  </node>
+
+</launch>

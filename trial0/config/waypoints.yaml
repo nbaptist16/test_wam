@@ -1,0 +1,56 @@
+# WAMpoints (haha, get it?)
+
+# num waypoints: 0 - 18	(total 19)
+
+# joint inputs (degrees):
+# wam/base_yaw_joint:		-41
+# wam/shoulder_pitch_joint:	27
+# wam/shoulder_yaw_joint:	86
+# wam/elbow_pitch_joint:	65
+# wam/wrist_yaw_joint:		24
+# wam/wrist_pitch_joint:	-34
+# wam/palm_yaw_joint:		-70
+
+
+#wam/base_link:
+positionx: [0]
+positiony: [0]
+positionz: [1]
+
+orientationx: [0]
+orientationy: [0]
+orientationz: [0]
+orientationw: [1]
+
+#*TODO: same for all 19 waypoints
+
+
+#wam/forearm_link:
+positionx: [0.045]
+positiony: [0]
+positionz: [1.896]
+
+orientationx: [-0.707107]
+orientationy: [0]
+orientationz: [0]
+orientationw: [0.707107]
+
+
+
+
+
+
+
+
+
+
+
+
+#x: [0.198, 0.2365, 0.2365, 0.2269, -0.2120, -0.2120, 0.198]
+#y: [0, -0.0678, -0.0678, 0.1107, 0.0037, 0.0037, 0]
+#z: [0.19305, 0.0881, 0.0881, 0.1096, 0.0740, 0.0740, 0.19305]
+#xo: [0, -0.9181, -0.9181, -0.9742, 0.0958, 0.0958, 0]
+#yo: [0, 0.1290, 0.1290, -0.2249, -0.0008, -0.0008, 0]
+#zo: [0, 0.3708, 0.3708, -0.0170, 0.9953, 0.9953, 0]
+#wo: [1, 0.0521, 0.0521, 0.0039, 0.0087, 0.0087, 1]
+#grips: [False, False, True, True, True, False, False]

@@ -1,0 +1,49 @@
+<launch>
+  <!-- based on ddrive.launch from hw3ws (q1) -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find trial0)/urdf/barrett_model/robots/wam7_bhand.urdf.xacro" />
+
+  <!-- added gazebo arg for quicker testing -->
+  <arg name="gazebo" default="True"/>
+  <!-- EDIT: change file name to change gazebo world loaded -->
+  <include if="$(arg gazebo)" file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- <arg name="world_name" value="$(find trial0)/worlds/trial0.world"/> -->
+    <arg name="world_name" value="$(find gazebo_ros)/launch/empty.world"/>
+    <arg name="paused" value="true"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- EDIT: change the values following '-x', '-y', and '-z' to edit the respective initial spawn coordinates -->
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model trial0 -x 0 -y 0 -z 0 -param robot_description" />
+
+  <!-- <include file="$(find ur_gazebo)/launch/controller_utils.launch"/>
+  <rosparam file="$(find ur_gazebo)/controller/arm_controller_ur5.yaml" command="load"/>
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/> -->
+  <!-- <include file="$(find ur_gazebo)/launch/controller_utils.launch"/> -->
+  <rosparam file="$(find barrett_moveit_v2)/config/ros_controllers.yaml" command="load"/>
+  <!-- <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/> -->
+
+
+  <!-- FULL ARM + HAND; BASIC RVIZ (NO MOVEIT) -->
+  <!-- <arg name="rviz" default="True" />
+  <group if="$(arg rviz)">
+    <param name="robot_description" command="$(find xacro)/xacro $(find trial0)/urdf/barrett_model/robots/wam7_bhand.urdf.xacro" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find trial0)/config/trial0_workin.rviz" />    
+  </group> -->
+
+  <!-- RVIZ + MOVEIT -->
+  <arg name="rviz" default="True" />
+  <group if="$(arg rviz)">
+    <!-- <param name="robot_description" command="$(find xacro)/xacro $(find trial0)/urdf/barrett_model/robots/wam7_bhand.urdf.xacro" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find trial0)/config/trial0_workin.rviz" />     -->
+    <include file="$(find barrett_moveit_v2)/launch/demo.launch"/>
+  </group>
+</launch>

@@ -1,0 +1,371 @@
+#!/usr/bin/env python3
+"""Mover Node:
+Publishers:
+    move_group/display_planned_path (moveit_msgs/MoveItErrorCodes) - returns result error code (successs/type of failure)
+
+Subscribers:
+    none
+
+Services:
+    srvr = reset    (Empty) - Takes a position and orientation of the realsense box and creates/moves the Realsense Box to the appropriate location
+                            - Moves the robot to its pre-defined 'Home' position without hitting the box ('Home' is pre-defined by the SDK)
+                            - Reset takes a parameter that determines if a series of waypoints are cleared or not.
+    srvs = step     (Step)  - moves the robot to a user-specified position
+                            - indicates whether the grippers should be open or closed at the position
+                            - Stores recorded waypoints as ros parameters so they can be accessed from the parameter server
+                                loaded from the parameter when the node starts, if available otherwise the waypoint list is empty
+                            - return the MoveItErrorCode to indicate success or failure of the plan
+    srvf = follow   (Empty) - has the robots move to each waypoint, in sequence
+                            - contain an option that determines if the cycle should be repeated or run just once
+
+Broadcasts:
+    none
+
+Parameters:
+    //please see yaml for "parameters"
+
+Exceptions:
+    none
+""" 
+import sys
+import copy
+import rospy
+import moveit_commander
+import moveit_msgs.msg
+import geometry_msgs.msg
+from math import pi
+from std_msgs.msg import String
+from moveit_commander.conversions import pose_to_list
+
+from arm_move.srv import Step
+from std_srvs.srv import Empty, EmptyResponse
+from moveit_msgs.msg import MoveItErrorCodes
+
+def all_close(goal, actual, tolerance):
+  """
+  //Stolen from moveit_python_interface (please see nuws)
+  Convenience method for testing if a list of values are within a tolerance of their counterparts in another list
+  @param: goal       A list of floats, a Pose or a PoseStamped
+  @param: actual     A list of floats, a Pose or a PoseStamped
+  @param: tolerance  A float
+  @returns: bool
+  """
+  all_equal = True
+  if type(goal) is list:
+    for index in range(len(goal)):
+      if abs(actual[index] - goal[index]) > tolerance:
+        return False
+
+  elif type(goal) is geometry_msgs.msg.PoseStamped:
+    return all_close(goal.pose, actual.pose, tolerance)
+
+  elif type(goal) is geometry_msgs.msg.Pose:
+    return all_close(pose_to_list(goal), pose_to_list(actual), tolerance)
+
+  return True
+
+class Mover:
+    def __init__(self):
+        super(Mover, self).__init__()
+        ## BEGIN_SUB_TUTORIAL setup
+        ##
+        ## First initialize `moveit_commander`_ and a `rospy`_ node:
+        moveit_commander.roscpp_initialize(sys.argv)
+        rospy.init_node('mover', anonymous=True)
+        # rospy.init_node('mover', anonymous=False)
+
+        #added:
+        self.robot_name = 'px100'
+        self.dof = 4
+
+        self.srvr = rospy.Service("reset", Empty, self.reset)
+        self.srvs = rospy.Service("step", Step, self.step)
+        self.srvf = rospy.Service("follow", Empty, self.follow)        
+
+        # self.x = rospy.get_param('/px100/mover/pos').get('x')
+        # self.y = rospy.get_param('/px100/mover/pos').get('y')
+        # self.z = rospy.get_param('/px100/mover/pos').get('z')
+        # self.grips = rospy.get_param('/px100/mover/pos').get('grips')
+
+        ## Instantiate a `RobotCommander`_ object. Provides information such as the robot's
+        ## kinematic model and the robot's current joint states
+        self.robot = moveit_commander.RobotCommander()
+
+        ## Instantiate a `PlanningSceneInterface`_ object.  This provides a remote interface
+        ## for getting, setting, and updating the robot's internal understanding of the
+        ## surrounding world:
+        self.scene = moveit_commander.PlanningSceneInterface()
+
+        ## Instantiate a `MoveGroupCommander`_ object.  This object is an interface
+        ## to a planning group (group of joints).  In this tutorial the group is the primary
+        ## arm joints in the Panda robot, so we set the group's name to "panda_arm".
+        ## If you are using a different robot, change this value to the name of your robot
+        ## arm planning group.
+        ## This interface can be used to plan and execute motions:
+        group_name = "interbotix_arm"
+        self.group = moveit_commander.MoveGroupCommander(group_name, wait_for_servers=15)
+
+        self.group.set_goal_tolerance(0.02)
+        self.group.set_max_velocity_scaling_factor(1.0)
+        self.gripper_group = moveit_commander.MoveGroupCommander('interbotix_gripper')
+
+        ## We create a `DisplayTrajectory`_ publisher which is used later to publish
+        ## trajectories for RViz to visualize:
+        self.display_trajectory_publisher = rospy.Publisher("move_group/display_planned_path",
+                                                    moveit_msgs.msg.DisplayTrajectory,
+                                                    queue_size=20)
+
+        # We can get the name of the reference frame for this robot:
+        planning_frame = self.group.get_planning_frame()
+        print("============ Reference frame: %s" % planning_frame)
+
+        # We can also print the name of the end-effector link for this group:
+        eef_link = self.group.get_end_effector_link()
+        print("============ End effector: %s" % eef_link)
+
+        # We can get a list of all the groups in the robot:
+        group_names = self.robot.get_group_names()
+        print("============ Robot Groups:", self.robot.get_group_names())
+
+        # Sometimes for debugging it is useful to print the entire state of the
+        # robot:
+        print("============ Printing robot state")
+        print(self.robot.get_current_state())
+        print("")
+
+        # Misc variables -- commented out
+        # self.box_name = ''
+        # self.robot = robot
+        # self.scene = scene
+        # self.group = group
+        # self.display_trajectory_publisher = display_trajectory_publisher
+        # self.planning_frame = planning_frame
+        # self.eef_link = eef_link
+        # self.group_names = group_names
+
+        # -----rospy.sleep(2)
+
+        ## BEGIN_SUB_TUTORIAL add_box
+        ##
+        ## Adding Objects to the Planning Scene
+        ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ## First, we will create a box in the planning scene at the location of the left finger:
+        pos = geometry_msgs.msg.PoseStamped()
+        pos.header.frame_id = 'world'
+
+        pos.pose.position.x = 0.0
+        pos.pose.position.y = 0.0
+        pos.pose.position.z = -0.025
+
+        self.scene.add_box("table", pos, (1, 1.5, 0.05))
+
+        #
+        # self.wait_for_state_update(box_is_known=True, timeout=15)
+
+        # immovable cassette case to represent approx position in rviz
+        ppos = geometry_msgs.msg.PoseStamped()
+        ppos.header.frame_id = 'world'
+
+        ppos.pose.position.x = 0.28
+        ppos.pose.position.y = -0.07
+        ppos.pose.position.z = 0.057
+        self.scene.add_box("police", ppos, (0.07, 0.015, 0.11))
+        
+        self.waze = []
+        self.wayzx = rospy.get_param('/x')
+        self.wayzy = rospy.get_param('/y')
+        self.wayzz = rospy.get_param('/z')
+        self.wayzxo = rospy.get_param('/xo')
+        self.wayzyo = rospy.get_param('/yo')
+        self.wayzzo = rospy.get_param('/zo')
+        self.wayzwo = rospy.get_param('/wo')
+        self.wayzgr = rospy.get_param('/grips')
+
+        self.reel_box_name = "realsense_box"
+
+        rospy.wait_for_service('reset')
+        reset = rospy.ServiceProxy('reset', Empty)
+        reset.call()
+
+
+    def reset(self,req):
+        '''
+        Callback for reset service: moves robot into the home position, models realsense box, and gives user option to clear current waypoints
+            arguments: Empty request
+            returns: EmptyResponse
+            exceptions: none
+        '''
+        self.reel_box_name = "realsense_box"
+        ## BEGIN_SUB_TUTORIAL add_box
+        ##
+        ## Adding Objects to the Planning Scene
+        ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ## First, we will create a box in the planning scene at the location of the left finger:
+        box_pose = geometry_msgs.msg.PoseStamped()
+        box_pose.header.frame_id = 'world'
+        box_pose.pose.orientation.w = 1.0
+        box_pose.pose.position.x = 0.2
+        box_pose.pose.position.y = 0
+        box_pose.pose.position.z = 0.025
+        # box_name = "realsense_box"
+        # self.scene.add_box(box_name, box_pose, size=(0.09, 0.14, 0.05))
+        self.scene.add_box(self.reel_box_name, box_pose, size=(0.09, 0.14, 0.05))
+        # self.wait_for_state_update(box_is_known=True, timeout=5)
+
+        # added from: px100.srdf.xacro
+        #file:///home/nckmlb/nuws/src/interbotix_ros_arms/interbotix_moveit/config/srdf/..
+        self.group.set_named_target("Home")
+        self.group.go()
+        # return []
+
+        # with love from KSmith
+        print('Clear waypoints?')
+        cleer = input('y or n:')
+        if cleer == 'y':
+            self.waze = []
+        else:
+            return EmptyResponse()
+        return EmptyResponse()
+
+    
+    def step(self, req):
+        '''
+        Callback for step service: plans and moves (if possible) robot based on given input (pose/waypoint(s))
+            arguments: Step request
+            returns: MoveitErrorCodes (int), list of feasible waypoints (if possible)
+            exceptions: none
+        '''
+        waypoint_pose = req.pose
+        gripper_pose = req.gripd
+        # Set the pose of the end-effector, if one is available. The expected input is a Pose message, a PoseStamped message or a list of 6 floats:
+        self.group.set_pose_target(waypoint_pose)
+        #Return a tuple of the motion planning results such as
+        # (success flag : boolean, trajectory message : RobotTrajectory,
+        #  planning time : float, error code : MoveitErrorCodes) 
+        success, traj_msg, plan_t, error = self.group.plan()
+        # If we cannot find a path, return the error code
+        if success != True:
+            return error
+        
+        #Run the path if the plan was succesful
+        self.group.execute(traj_msg, wait=True)
+
+        #Stop the current execution, if any 
+        self.group.stop()
+
+        #Clear all known pose targets 
+        self.group.clear_pose_targets()
+
+        if gripper_pose:
+            #Set a joint configuration by name. 
+            # The name can be a name previlusy remembered with remember_joint_values() or a configuration specified in the SRDF.
+            print("________________________________________________________")
+            rospy.loginfo(f"gripper_group is {self.gripper_group}")
+            self.gripper_group.set_named_target("Closed")
+        else:
+            self.gripper_group.set_named_target("Open")
+
+        #unindented x1
+        self.gripper_group.go(wait=True)
+        self.gripper_group.stop()
+        self.gripper_group.clear_pose_targets()
+        # self.waypoints.append(waypoint_pose)
+        self.waze.append(waypoint_pose)
+
+        return error
+        
+
+    def follow(self,req):
+        '''
+        Callback for follow service: executes a trajectory through a series of waypoints (steps through each point)
+            arguments: Empty request
+            returns: EmptyResponse (going through waypoints n all)
+            exceptions: none
+        '''
+        rospy.wait_for_service('step')
+        self.stepp = rospy.ServiceProxy('step', Step)
+
+        for i in range(len(self.wayzx)):
+            stp = Step()
+            pos = geometry_msgs.msg.Pose()
+            # pos.orientation.w = 1.0
+            pos.position.x = self.wayzx[i]
+            pos.position.y = self.wayzy[i]
+            pos.position.z = self.wayzz[i]
+            pos.orientation.x = self.wayzxo[i]
+            pos.orientation.y = self.wayzyo[i]
+            pos.orientation.z = self.wayzzo[i]
+            pos.orientation.w = self.wayzwo[i]
+
+            stp.pose = pos
+            stp.gripd = self.wayzgr[i]
+            self.stepp(stp.pose, stp.gripd)
+            miec = self.stepp(stp.pose, stp.gripd)
+            print(miec)
+                
+        # return []
+
+        #Kailey again
+        print('Repeat follow?')
+        repeater = input('y or n:')
+        if repeater == 'y':
+            self.waze = []
+            self.follow(Empty)
+        else:
+            return EmptyResponse()
+        return EmptyResponse()
+
+
+    def wait_for_state_update(self, box_is_known=False, box_is_attached=False, timeout=4):
+        '''
+        //Straight. Outta. moveit_python_interface (please see nuws)
+        Checks box objects' states
+            args: box_is_known (bool), box_is_attached (bool), timeout
+            returns: Bool (true @ detected; false @ timed out)
+            exceptions: none
+        '''
+        # Copy class variables to local variables to make the web tutorials more clear.
+        # In practice, you should use the class variables directly unless you have a good
+        # reason not to.
+        box_name = self.box_name
+        scene = self.scene
+
+        ## BEGIN_SUB_TUTORIAL wait_for_scene_update
+        ##
+        ## Ensuring Collision Updates Are Receieved
+        ## ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ## If the Python node dies before publishing a collision object update message, the message
+        ## could get lost and the box will not appear. To ensure that the updates are
+        ## made, we wait until we see the changes reflected in the
+        ## ``get_known_object_names()`` and ``get_known_object_names()`` lists.
+        ## For the purpose of this tutorial, we call this function after adding,
+        ## removing, attaching or detaching an object in the planning scene. We then wait
+        ## until the updates have been made or ``timeout`` seconds have passed
+        start = rospy.get_time()
+        seconds = rospy.get_time()
+        while (seconds - start < timeout) and not rospy.is_shutdown():
+        # Test if the box is in attached objects
+            attached_objects = scene.get_attached_objects([box_name])
+            is_attached = len(attached_objects.keys()) > 0
+
+            # Test if the box is in the scene.
+            # Note that attaching the box will remove it from known_objects
+            is_known = box_name in scene.get_known_object_names()
+            # Test if we are in the expected state
+            if (box_is_attached == is_attached) and (box_is_known == is_known):
+                return True
+
+            # Sleep so that we give other threads time on the processor
+            rospy.sleep(0.1)
+            seconds = rospy.get_time()
+
+        # If we exited the while loop without returning then we timed out
+        return False
+        ## END_SUB_TUTORIAL
+
+if __name__ == "__main__":
+    '''
+    Creates Mover object; does the thing
+    '''
+    m = Mover()
+    rospy.spin()
