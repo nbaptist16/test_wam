@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #    Example ROS node. Demonstrates how to write a ROS node to control the simulated WAM.
 #    Copyright (C) 2013  Benjamin Blumer

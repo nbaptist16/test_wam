@@ -15,16 +15,16 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/usr/include/gazebo-11"
-  "/usr/include/sdformat-9.2"
+  "/usr/lib/x86_64-linux-gnu/pkgconfig/../../../include/gazebo-11"
+  "/usr/include/sdformat-9.5"
   "/usr/include/ignition/fuel_tools4"
-  "/usr/include/ignition/common3"
+  "/usr/lib/x86_64-linux-gnu/pkgconfig/../../../include/ignition/common3"
   "/usr/include/ignition/transport8"
   "/usr/include/pgm-5.2"
   "/usr/include/uuid"
   "/usr/include/ignition/msgs5"
-  "/usr/include/ignition/math6"
-  "/usr/include/ignition/cmake2"
+  "/usr/lib/x86_64-linux-gnu/pkgconfig/../../../include/ignition/math6"
+  "/usr/lib/x86_64-linux-gnu/pkgconfig/../../../include/ignition/cmake2"
   "/opt/ros/noetic/include"
   )
 

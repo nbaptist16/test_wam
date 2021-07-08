@@ -77,7 +77,8 @@ initial:  # Define initial robot poses.
 # Publish all joint states -----------------------------------
 joint_state_controller:
   type: joint_state_controller/JointStateController
-  publish_rate: 100
+  # publish_rate: 100
+  publish_rate: 50
     # Position Controllers ---------------------------------------
 # Control all joints
 arm:

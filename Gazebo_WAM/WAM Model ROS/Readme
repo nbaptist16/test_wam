@@ -86,3 +86,6 @@ Edit step 1 @ quickstart: export GAZEBO_MODEL_PATH=/home/nckmlb/test_wam/src/Gaz
 
 Edit step 4 @ quickstart: chmod +x exampleROSNode.py
                           python3 exampleROSNode.py
+	or
+	edit shebang in exampleROSNode.py (from #!/usr/bin/env python) to #!/usr/bin/env python3
+	then ./exampleROSNode.py should work fine
