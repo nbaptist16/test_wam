@@ -71,6 +71,7 @@ Benjamin Aaron Blumer (at) gmail
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 				<mass>20.000000</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -133,6 +134,7 @@ Benjamin Aaron Blumer (at) gmail
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 				<mass>8.393600</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -190,6 +192,7 @@ Benjamin Aaron Blumer (at) gmail
 				<dynamics>
 					<damping>1</damping>
 					<!--default value is 100 -->
+					<!-- <damping>100.000000</damping> -->
 				</dynamics>
 			</axis>
 		</joint>
@@ -198,6 +201,7 @@ Benjamin Aaron Blumer (at) gmail
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 				<mass>4.848700</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -254,6 +258,7 @@ Benjamin Aaron Blumer (at) gmail
 				</limit>
 				<dynamics>
 					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
 				</dynamics>
 			</axis>
 		</joint>
@@ -262,6 +267,7 @@ Benjamin Aaron Blumer (at) gmail
 			<inertial>
 				<pose>0.000000 0.000000 0.225000 0.000000 0.000000 0.000000</pose>
 				<mass>1.725100</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -318,6 +324,7 @@ Benjamin Aaron Blumer (at) gmail
 				</limit>
 				<dynamics>
 					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
 				</dynamics>
 			</axis>
 		</joint>
@@ -326,6 +333,7 @@ Benjamin Aaron Blumer (at) gmail
 			<inertial>
 				<pose>-0.045000 -0.150000 0.000000 0.000000 0.000000 0.000000</pose>
 				<mass>2.082400</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -382,6 +390,7 @@ Benjamin Aaron Blumer (at) gmail
 				</limit>
 				<dynamics>
 					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
 				</dynamics>
 			</axis>
 		</joint>
@@ -390,6 +399,7 @@ Benjamin Aaron Blumer (at) gmail
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 				<mass>0.306700</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -446,6 +456,7 @@ Benjamin Aaron Blumer (at) gmail
 				</limit>
 				<dynamics>
 					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
 				</dynamics>
 			</axis>
 		</joint>
@@ -454,6 +465,7 @@ Benjamin Aaron Blumer (at) gmail
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 				<mass>0.427800</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -510,6 +522,7 @@ Benjamin Aaron Blumer (at) gmail
 				</limit>
 				<dynamics>
 					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
 				</dynamics>
 			</axis>
 		</joint>
@@ -518,6 +531,7 @@ Benjamin Aaron Blumer (at) gmail
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 				<mass>0.055700</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -574,17 +588,20 @@ Benjamin Aaron Blumer (at) gmail
 				</limit>
 				<dynamics>
 					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
 				</dynamics>
 			</axis>
 		</joint>
 
 		<!-- added for hand -->
+		<!-- please see hand.urdf.xacro for more information -->
 		<link name="wam_link8"> <!-- palm -->
 			<pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose>
 			<!-- <pose>0.220000 0.140000 1.256000 0.000000 0.000000 0.000000</pose> -->
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<!-- <mass>0.055700</mass> -->
+				<mass>0.50573</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -592,6 +609,12 @@ Benjamin Aaron Blumer (at) gmail
 					<iyy>0.100000</iyy>
 					<iyz>0.000000</iyz>
 					<izz>0.100000</izz>
+					<!-- <ixx>3.8374e-005</ixx>
+					<ixy>-5.604e-008</ixy>
+					<ixz>-4.2034e-005</ixz>
+					<iyy>0.00022405</iyy>
+					<iyz>1.3283e-007</iyz>
+					<izz>0.00020045</izz> -->
 				</inertia>
 			</inertial>
 			<collision name="wam_link8_collision">
@@ -634,13 +657,18 @@ Benjamin Aaron Blumer (at) gmail
 			<axis>
 				<xyz>0.000000 0.000000 1.000000</xyz>
 				<limit>
-					<lower>-3.000000</lower>
+					<!-- <lower>-3.000000</lower>
 					<upper>3.000000</upper>
 					<effort>30.000000</effort>
-					<velocity>2.000000</velocity>
+					<velocity>2.000000</velocity> -->
+					<lower>0.000000</lower>
+					<upper>3.141592</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
 				</limit>
 				<dynamics>
-					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -652,7 +680,8 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.220000 0.140000 1.329000 0.000000 0.000000 -3.141592</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<!-- <mass>0.055700</mass> -->
+				<mass>0.14109</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -708,7 +737,8 @@ Benjamin Aaron Blumer (at) gmail
 					<velocity>2.000000</velocity>
 				</limit>
 				<dynamics>
-					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -719,7 +749,7 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.170500 0.140000 1.333000 -1.570796 3.201592 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<mass>0.062139</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -776,12 +806,12 @@ Benjamin Aaron Blumer (at) gmail
 					<velocity>2.000000</velocity> -->
 					<lower>0.000000</lower>
 					<upper>3.141592</upper>
-					<effort>1.000000</effort>
-					<velocity>1.000000</velocity>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
 				</limit>
 				<dynamics>
 					<!-- <damping>100.000000</damping> -->
-					<damping>1.000000</damping>
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -792,7 +822,7 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.100500 0.140000 1.337100 -1.570796 4.101592 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<mass>0.041377</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -848,14 +878,14 @@ Benjamin Aaron Blumer (at) gmail
 					<upper>3.000000</upper>
 					<effort>30.000000</effort>
 					<velocity>2.000000</velocity> -->
-					<lower>-3.141592</lower>
-					<upper>3.141592</upper>
-					<effort>1.000000</effort>
-					<velocity>1.000000</velocity>
+					<lower>-0.83775804095</lower>
+					<upper>0</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
 				</limit>
 				<dynamics>
 					<!-- <damping>100.000000</damping> -->
-					<damping>1.000000</damping>
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -868,7 +898,7 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.220000 0.165000 1.329000 0.000000 0.000000 -3.141592</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<mass>0.14109</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -912,22 +942,6 @@ Benjamin Aaron Blumer (at) gmail
 			</velocity_decay>
 			<self_collide>1</self_collide>
 		</link>
-		<!-- <joint name="j12_joint" type="fixed">
-			<child>wam_link12</child>
-			<parent>wam_link8</parent>
-			<axis>
-				<xyz>0.000000 0.000000 1.000000</xyz>
-				<limit>
-					<lower>-3.000000</lower>
-					<upper>3.000000</upper>
-					<effort>30.000000</effort>
-					<velocity>2.000000</velocity>
-				</limit>
-				<dynamics>
-					<damping>100.000000</damping>
-				</dynamics>
-			</axis>
-		</joint> -->
 		<joint name="j12_joint" type="revolute">
 			<child>wam_link12</child>
 			<parent>wam_link8</parent>
@@ -945,7 +959,7 @@ Benjamin Aaron Blumer (at) gmail
 				</limit>
 				<dynamics>
 					<!-- <damping>100.000000</damping> -->
-					<damping>1.000000</damping>
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -956,7 +970,7 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.170500 0.165000 1.333000 -1.570796 3.201592 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<mass>0.062139</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -1012,13 +1026,13 @@ Benjamin Aaron Blumer (at) gmail
 					<effort>30.000000</effort>
 					<velocity>2.000000</velocity> -->
 					<lower>0.000000</lower>
-					<upper>3.141592</upper>
-					<effort>1.000000</effort>
-					<velocity>1.000000</velocity>
+					<upper>2.44346095279</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
 				</limit>
 				<dynamics>
 					<!-- <damping>100.000000</damping> -->
-					<damping>1.000000</damping>
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -1029,7 +1043,7 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.100500 0.165000 1.337100 -1.570796 4.101592 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<mass>0.041377</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -1085,14 +1099,14 @@ Benjamin Aaron Blumer (at) gmail
 					<upper>3.000000</upper>
 					<effort>30.000000</effort>
 					<velocity>2.000000</velocity> -->
-					<lower>-3.141592</lower>
-					<upper>3.141592</upper>
-					<effort>1.000000</effort>
-					<velocity>1.000000</velocity>
+					<lower>-0.83775804095</lower>
+					<upper>0</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
 				</limit>
 				<dynamics>
 					<!-- <damping>100.000000</damping> -->
-					<damping>1.000000</damping>
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -1105,7 +1119,7 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.220000 0.115000 1.329000 0.000000 0.000000 -3.141592</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<mass>0.14109</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -1149,22 +1163,6 @@ Benjamin Aaron Blumer (at) gmail
 			</velocity_decay>
 			<self_collide>1</self_collide>
 		</link>
-		<!-- <joint name="j15_joint" type="fixed">
-			<child>wam_link15</child>
-			<parent>wam_link8</parent>
-			<axis>
-				<xyz>0.000000 0.000000 1.000000</xyz>
-				<limit>
-					<lower>-3.000000</lower>
-					<upper>3.000000</upper>
-					<effort>30.000000</effort>
-					<velocity>2.000000</velocity>
-				</limit>
-				<dynamics>
-					<damping>100.000000</damping>
-				</dynamics>
-			</axis>
-		</joint> -->
 		<joint name="j15_joint" type="revolute">
 			<child>wam_link15</child>
 			<parent>wam_link8</parent>
@@ -1182,7 +1180,7 @@ Benjamin Aaron Blumer (at) gmail
 				</limit>
 				<dynamics>
 					<!-- <damping>100.000000</damping> -->
-					<damping>1.000000</damping>
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -1193,7 +1191,7 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.170500 0.115000 1.333000 -1.570796 3.201592 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<mass>0.062139</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -1249,13 +1247,13 @@ Benjamin Aaron Blumer (at) gmail
 					<effort>30.000000</effort>
 					<velocity>2.000000</velocity> -->
 					<lower>0.000000</lower>
-					<upper>3.141592</upper>
-					<effort>1.000000</effort>
-					<velocity>1.000000</velocity>
+					<upper>2.44346095279</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
 				</limit>
 				<dynamics>
 					<!-- <damping>100.000000</damping> -->
-					<damping>1.000000</damping>
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>
@@ -1266,7 +1264,7 @@ Benjamin Aaron Blumer (at) gmail
 			<pose>0.100500 0.115000 1.337100 -1.570796 4.101592 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<mass>0.055700</mass>
+				<mass>0.041377</mass>
 				<inertia>
 					<ixx>1.000000</ixx>
 					<ixy>0.000000</ixy>
@@ -1322,14 +1320,14 @@ Benjamin Aaron Blumer (at) gmail
 					<upper>3.000000</upper>
 					<effort>30.000000</effort>
 					<velocity>2.000000</velocity> -->
-					<lower>-3.141592</lower>
-					<upper>3.141592</upper>
-					<effort>1.000000</effort>
-					<velocity>1.000000</velocity>
+					<lower>-0.83775804095</lower>
+					<upper>0</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
 				</limit>
 				<dynamics>
 					<!-- <damping>100.000000</damping> -->
-					<damping>1.000000</damping>
+					<damping>0.11</damping>
 				</dynamics>
 			</axis>
 		</joint>

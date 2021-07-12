@@ -43,7 +43,8 @@ namespace gazebo {
   class ROSModelPlugin : public ModelPlugin {    
   public: 
     ROSModelPlugin() {    
-      std::string node_name = "ROS_WAM_listener";
+      // std::string node_name = "ROS_WAM_listener";
+      std::string node_name = "ROS_track_listener";
       int argc = 0;
       // ros::init sets up our ROS node. It requires the command line arguments,
       // but passing NULL as the second argument tells it not to use them. 
@@ -61,26 +62,15 @@ namespace gazebo {
       // So we're on the zeroth coordinate.
       this->current_joint_trajectory_point = 0;
       // Find these joint names in the SDF, and store pointers to these joints.
-      this->j1 = this->model->GetJoint("j1_joint"); 
-      this->j2 = this->model->GetJoint("j2_joint"); 
-      this->j3 = this->model->GetJoint("j3_joint"); 
-      this->j4 = this->model->GetJoint("j4_joint"); 
-      this->j5 = this->model->GetJoint("j5_joint"); 
-      this->j6 = this->model->GetJoint("j6_joint"); 
-      this->j7 = this->model->GetJoint("j7_joint");
+      // this->j1 = this->model->GetJoint("j1_joint"); 
+      // this->j2 = this->model->GetJoint("j2_joint"); 
+      // this->j3 = this->model->GetJoint("j3_joint"); 
+      // this->j4 = this->model->GetJoint("j4_joint"); 
+      // this->j5 = this->model->GetJoint("j5_joint"); 
+      // this->j6 = this->model->GetJoint("j6_joint"); 
+      // this->j7 = this->model->GetJoint("j7_joint");
+      this->t1 = this->model->GetJoint("t1_joint"); 
       
-      // added for barrett hand
-      this->j8 = this->model->GetJoint("j8_joint");
-      this->j9 = this->model->GetJoint("j9_joint");
-      this->j10 = this->model->GetJoint("j10_joint");
-      this->j11 = this->model->GetJoint("j11_joint");
-      this->j12 = this->model->GetJoint("j12_joint");
-      this->j13 = this->model->GetJoint("j13_joint");
-      this->j14 = this->model->GetJoint("j14_joint");
-      this->j15 = this->model->GetJoint("j15_joint");
-      this->j16 = this->model->GetJoint("j16_joint");
-      this->j17 = this->model->GetJoint("j17_joint");
-
       // Set a joint controller to associate itself with our WAM model.
       this->WAM_joint_controller = new physics::JointController(model);
       // Subscribe to the ROS topic "joint_traj" This is published by the
@@ -93,7 +83,8 @@ namespace gazebo {
       // indicates that ROSCallback method is accessible through an instance
       // of this class. It's not needed if Callback is a function external to
       // a class rather than a method.
-      this->sub = this->node->subscribe("joint_traj", 10, &ROSModelPlugin::ROSCallback, this);
+      // this->sub = this->node->subscribe("joint_traj", 10, &ROSModelPlugin::ROSCallback, this);
+      this->sub = this->node->subscribe("track_traj", 10, &ROSModelPlugin::ROSCallback, this);
       // This allows the OnUpdate() method to be called
       // every time Gazebo computes another iteration.
       this->updateConnection = event::Events::ConnectWorldUpdateBegin(
@@ -117,54 +108,9 @@ namespace gazebo {
         // this->current_gazebo_time = this->model->GetWorld()->GetSimTime(); 
         // this->current_gazebo_time = this->model->GetWorld()->SetSimTime();
         this->current_gazebo_time = this->model->GetWorld()->SimTime();
-        // // Check if we still have joint coordinates to visit. If we do, has enough time elapsed to make the move?
-        // if ((this->current_joint_trajectory_point < number_of_joint_trajectory_points) &&
-        //   ((this->current_gazebo_time.Double() - time_when_trajectory_received.Double()) > (*joint_trajectory).points[this->current_joint_trajectory_point].time_from_start.toSec())) {
-        //   //Commands Gazebo to set the joint positions of our model according to the values in our trajectory.
-        //   WAM_joint_controller->SetJointPosition(j1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
-        //   WAM_joint_controller->SetJointPosition(j2, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[1]);
-        //   WAM_joint_controller->SetJointPosition(j3, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[2]);
-        //   WAM_joint_controller->SetJointPosition(j4, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[3]);
-        //   WAM_joint_controller->SetJointPosition(j5, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[4]);
-        //   WAM_joint_controller->SetJointPosition(j6, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[5]);
-        //   WAM_joint_controller->SetJointPosition(j7, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[6]);
-
-        //   // // added for barrett hand
-        //   WAM_joint_controller->SetJointPosition(j8, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[7]);
-        //   WAM_joint_controller->SetJointPosition(j9, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[8]);
-        //   WAM_joint_controller->SetJointPosition(j10, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[9]);
-        //   WAM_joint_controller->SetJointPosition(j11, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[10]);
-        //   WAM_joint_controller->SetJointPosition(j12, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[11]);
-        //   WAM_joint_controller->SetJointPosition(j13, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[12]);
-        //   WAM_joint_controller->SetJointPosition(j14, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[13]);
-        //   WAM_joint_controller->SetJointPosition(j15, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[14]);
-        //   WAM_joint_controller->SetJointPosition(j16, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[15]);
-        //   WAM_joint_controller->SetJointPosition(j17, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[16]);
-
-        //   this->current_joint_trajectory_point++;
-        //   }
-        
-        // nckmlb: removed if statement cuz not based on time so much anymore? Idk, it's less mad now
         //Commands Gazebo to set the joint positions of our model according to the values in our trajectory.
-        WAM_joint_controller->SetJointPosition(j1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
-        WAM_joint_controller->SetJointPosition(j2, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[1]);
-        WAM_joint_controller->SetJointPosition(j3, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[2]);
-        WAM_joint_controller->SetJointPosition(j4, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[3]);
-        WAM_joint_controller->SetJointPosition(j5, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[4]);
-        WAM_joint_controller->SetJointPosition(j6, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[5]);
-        WAM_joint_controller->SetJointPosition(j7, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[6]);
-
-        // // added for barrett hand
-        WAM_joint_controller->SetJointPosition(j8, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[7]);
-        WAM_joint_controller->SetJointPosition(j9, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[8]);
-        WAM_joint_controller->SetJointPosition(j10, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[9]);
-        WAM_joint_controller->SetJointPosition(j11, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[10]);
-        WAM_joint_controller->SetJointPosition(j12, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[11]);
-        WAM_joint_controller->SetJointPosition(j13, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[12]);
-        WAM_joint_controller->SetJointPosition(j14, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[13]);
-        WAM_joint_controller->SetJointPosition(j15, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[14]);
-        WAM_joint_controller->SetJointPosition(j16, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[15]);
-        WAM_joint_controller->SetJointPosition(j17, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[16]);
+        // WAM_joint_controller->SetJointPosition(j1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
+        WAM_joint_controller->SetJointPosition(t1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
 
         this->current_joint_trajectory_point++;
           // If we're at the end of the trajectory, reset the point counter
@@ -204,7 +150,7 @@ namespace gazebo {
     // Pointer to the update event connection
     private: event::ConnectionPtr updateConnection;
     // private: gazebo::physics::JointPtr j1, j2, j3, j4, j5, j6, j7;
-    private: gazebo::physics::JointPtr j1, j2, j3, j4, j5, j6, j7, j8, j9, j10, j11, j12, j13, j14, j15, j16, j17;
+    private: gazebo::physics::JointPtr t1;
     private: common::Time current_gazebo_time;
     private: bool have_a_trajectory;
     private: common::Time time_when_trajectory_received;
