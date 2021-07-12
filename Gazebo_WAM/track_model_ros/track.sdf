@@ -1,0 +1,173 @@
+<!--
+    Track SDF model for WAM.
+    Meticulously thrown together by Nicole Baptist
+
+    Be warned that this was made for a 9/8-week-long project,
+    so viewer discretion is advised.
+  
+    Approximate dimensions of track:
+        length: 9'		2.7432 m
+        width:  8.5"	0.2159 m
+        height: 15"		0.381 m
+    
+    Approximate dimensions of moveable components:
+        length: 40"		1.016 m
+        width:  17"		0.4318 m
+        height: 17"		0.4318 m
+    -->
+<?xml version="1.0" ?>
+<sdf version="1.4">
+	<model name="track4wam">
+		<link name="track_link0">
+			<!-- <pose>0.220000 0.140000 0.000000 0.000000 0.000000 0.000000</pose> -->
+			<pose>-1.3716 -0.10795 0.000000 0.000000 0.000000 0.000000</pose> <!-- note: Z MIGHT BE ZERO CUZ SAVE AS STL REQUIRES BOTTOM SURFACE? ignore: might be 107.95 -->
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>200.000000</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>1.000000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>1.000000</izz>
+				</inertia>
+			</inertial>
+			<collision name="track_link0_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<!-- <scale>1.000000 1.000000 1.000000</scale> -->
+						<scale>0.001000 0.001000 0.001000</scale>
+						<!-- note: cuz gazebo scale apparently in mm, whereas stl models are in m -->
+						<!-- <uri>model://WAM Model ROS/meshes/track.stl</uri> -->
+						<!-- <uri>model://track_model_ros/meshes/track.stl</uri> -->
+						<uri>model://track_model_ros/meshes/track.STL</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="track_link0_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<!-- <scale>1.000000 1.000000 1.000000</scale> -->
+						<scale>0.001000 0.001000 0.001000</scale>
+						<!-- <uri>model://WAM Model ROS/meshes/track.stl</uri> -->
+						<!-- <uri>model://track_model_ros/meshes/track.stl</uri> -->
+						<uri>model://track_model_ros/meshes/track.STL</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<!-- <joint name="wam0_fix" type="revolute"> -->
+        <joint name="track0_fix" type="fixed">
+			<child>track_link0</child>
+			<parent>world</parent>
+			<axis>
+				<limit>
+					<lower>0.000000</lower>
+					<upper>0.000000</upper>
+				</limit>
+				<dynamics>
+					<damping>0.000000</damping>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+		<link name="track_link1">
+			<!-- <pose>0.220000 0.140000 0.346000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.00000 0.000000 0.4318 0.000000 0.000000 0.000000</pose> -->
+			<pose>-0.508 -0.2159 0.381 0.000000 0.000000 0.000000</pose> <!-- note: might be *1000? -->
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>15.000000</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>1.000000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>1.000000</izz>
+				</inertia>
+			</inertial>
+			<collision name="track_link1_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<!-- <scale>1.000000 1.000000 1.000000</scale> -->
+						<scale>0.001000 0.001000 0.001000</scale>
+						<!-- <uri>model://WAM Model ROS/meshes/carriage.stl</uri> -->
+						<!-- <uri>model://track_model_ros/meshes/carriage.stl</uri> -->
+						<uri>model://track_model_ros/meshes/carriage.STL</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="track_link1_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<!-- <scale>1.000000 1.000000 1.000000</scale> -->
+						<scale>0.001000 0.001000 0.001000</scale>
+						<!-- <uri>model://WAM Model ROS/meshes/carriage.stl</uri> -->
+						<!-- <uri>model://track_model_ros/meshes/carriage.stl</uri> -->
+						<uri>model://track_model_ros/meshes/carriage.STL</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<!-- <joint name="j1_joint" type="revolute"> -->
+        <joint name="t1_joint" type="prismatic">
+			<child>track_link1</child>
+			<parent>track_link0</parent>
+			<!-- added: -->
+			<!-- <origin xyz="0 0 0.2134" rpy="0 0 0"/> -->
+			<!-- <origin xyz="0 0 213.4" rpy="0 0 0"/> -->
+			<axis>
+				<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
+                <xyz>1.000000 0.000000 0.000000</xyz>
+				<limit>
+					<lower>-2.00000</lower>
+					<upper>2.00000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>1</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+	<!-- <plugin name="ros_wam_plugin" filename="build/libros_wam_plugin.so" /> -->
+    <plugin name="ros_track_plugin" filename="build/libros_track_plugin.so" />
+	</model>
+</sdf>
