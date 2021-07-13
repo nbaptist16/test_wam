@@ -1,0 +1,91 @@
+
+**************************************************************************
+*** Model based on Institut de Robòtica's URDF WAM Models and STL files. Find them and many more great tools here: http://wiki.iri.upc.edu/index.php/IRI_ROS
+*** They were converted to SDF (using Gazebosim) and tweaked by Benjamin Blumer.
+*** Plugins written by Benjamin Blumer.
+*** BenjaminAaronBlumer@gmail.com
+*** The files are licensed under the GPL as specified in each file. This Readme is also licensed under the GPL.
+**************************************************************************************
+    Readme file for an SDF WAM Model and Plugins
+    Copyright (C) 2013 Benjamin Aaron Blumer
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+What this package will do for you:
+It will let you load a model of Barrett's WAM Arm (http://www.barrett.com/) in to Gazebo simulator (gazebosim.org). You can then set the joint angles using a ROS (ros.org) node publishing a JointTrajectory. An example ROS node is included.
+
+This package contains an SDF of IRI's WAM model. It should be used with Gazebo v. 1.5 or higher. The versions of Gazebo bundled with pre-Hydra ROS are outdated and should not be used. The model can be used by itself or with the joint controller plugin I've written for it. The plugin subscribes to the "joint_traj" rostopic (with timestamps).  The ros_topic should be publishing a JointTrajectory type message. An example ROS node that publishes what this plugin is looking for is in this folder as "exampleROSNode.py". The model is commanded to a set of joint positions when Gazebo's clock ("Sim Time") reaches the set's timestamp. 
+
+ros_wam_plugin.cc -- This is the Gazebo plugin that controls the joints. After modifying this file, you must rebuild the plugin.
+
+wam.sdf -- This is an SDF version of IRI's WAM model. It relies on the files within "meshes" to give it the appropriate visual and collision properties.  To use the model without the joint controller, simply delete the line "<plugin name="ros_wam_plugin" filename="build/libros_wam_plugin.so"/>"
+
+model.config tells Gazebo where everything is within this folder.
+
+wam_world.sdf is a demo of how to load the WAM arm using a "World file".  You can add things to the world file to add other objects, change orientations, and otherwise tailor a ready-to-go set up.
+
+CMakeList -- is used for compiling the plugin. 
+
+The script "doit.sh" compiles the plugin. You may also need to make the script executable. To do this, type "chmod +x doit.sh" while in the directory of the script.
+
+QUICK START:
+
+I'm assuming you have ROS, Python, and Gazebo installed.
+
+1. Add the folders to the environment variables, so that Gazebo knows where to look.
+On a linux shell: 
+  "export GAZEBO_MODEL_PATH=location/to/wam/model/folder/:$GAZEBO_MODEL_PATH"
+  "export GAZEBO_PLUGIN_PATH=location/to/wam/model/folder/WAM\ Model\ ROS:${GAZEBO_PLUGIN_PATH}"
+Notice: The model path should point to the folder that contains "WAM Model ROS", 
+where as the plugin path should point to the folder itself.
+
+2. Compile the plugins. 
+ In a terminal:
+ Navigate to WAM Model ROS.
+ Make the compiling script executable "chmod +x doit.sh".
+ Execute the compiling script "./doit.sh"
+
+3. Run roscore.
+ in a different terminal, type "roscore". 
+
+4. Run the ROS plugin to publish the trajectories. 
+ In a different terminal, navigate to WAM Model ROS. 
+ Make the python script executable by typing "chmod +x exampleROSNode.py"
+ Then execute it: "./exampleROSNode.py".
+ 
+ You should see it spewing out a bunch of messages along the lines of "Published a trajectory".
+
+5. Run Gazebo and launch the WAM.
+ In a different terminal, navigate to WAM Model ROS.
+ type "gazebo wam_world.sdf"
+
+After a second, you should see the WAM arm sitting on the ground, and it should start moving to the trajectory being published by the ROS node.
+
+
+
+<!-- added by nckmlb -->
+Edit CMakeLists.txt
+  (https://answers.gazebosim.org//question/25073/gazeboexamplespluginscamera-build-error/)
+
+Edit ros_wam_plugin.cc
+  (https://github.com/osrf/car_demo/issues/35)
+
+Edit step 1 @ quickstart: export GAZEBO_MODEL_PATH=/home/nckmlb/test_wam/src/Gazebo_WAM/:$GAZEBO_MODEL_PATH
+                          export GAZEBO_PLUGIN_PATH=/home/nckmlb/test_wam/src/Gazebo_WAM/WAM\ Model\ ROS:${GAZEBO_PLUGIN_PATH}
+
+Edit step 4 @ quickstart: chmod +x exampleROSNode.py
+                          python3 exampleROSNode.py
+	or
+	edit shebang in exampleROSNode.py (from #!/usr/bin/env python) to #!/usr/bin/env python3
+	then ./exampleROSNode.py should work fine

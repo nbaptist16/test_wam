@@ -1,0 +1,1472 @@
+<!--
+    The WAM + track SDF model wombo-combo (WAMtrack).
+    Meticulously tossed together by Nicole Baptist
+
+    Be warned that this was made for a 9/8-week-long project,
+    so viewer discretion is advised.
+
+    DIMENSIONS BORROWED FROM MY OTHER DISASTER, track.sdf:
+    Approximate dimensions of track:
+        length: 9'		2.7432 m
+        width:  8.5"	0.2159 m
+        height: 15"		0.381 m
+    
+    Approximate dimensions of moveable components:
+        length: 40"		1.016 m
+        width:  17"		0.4318 m
+        height: 17"		0.4318 m
+    -->
+<?xml version="1.0" ?>
+<sdf version="1.4">
+	<model name="wamtrack">
+    <!-- track -->
+		<link name="track_link0">
+			<!-- <pose>-1.3716 -0.10795 0.000000 0.000000 0.000000 0.000000</pose> --> <!-- note: Z MIGHT BE ZERO CUZ SAVE AS STL REQUIRES BOTTOM SURFACE? ignore: might be 107.95 -->
+            <pose>-1.23248 0.07183 0.000000 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>200.000000</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>1.000000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>1.000000</izz>
+				</inertia>
+			</inertial>
+			<collision name="track_link0_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>0.001000 0.001000 0.001000</scale>
+						<!-- note: cuz gazebo scale apparently in mm, whereas stl models are in m -->
+						<!-- <uri>model://wamtrack/meshes/track.stl</uri> -->
+						<!-- <uri>model://track_model_ros/meshes/track.stl</uri> -->
+						<uri>model://wamtrack/meshes/track.STL</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="track_link0_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>0.001000 0.001000 0.001000</scale>
+						<!-- <uri>model://wamtrack/meshes/track.stl</uri> -->
+						<!-- <uri>model://track_model_ros/meshes/track.stl</uri> -->
+						<uri>model://wamtrack/meshes/track.STL</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+        <joint name="track0_fix" type="fixed">
+			<child>track_link0</child>
+			<parent>world</parent>
+			<axis>
+				<limit>
+					<lower>0.000000</lower>
+					<upper>0.000000</upper>
+				</limit>
+				<dynamics>
+					<damping>0.000000</damping>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+		<link name="track_link1">
+			<!-- <pose>-0.508 -0.2159 0.381 0.000000 0.000000 0.000000</pose> -->
+            <pose>-0.36888 -0.03612 0.381 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>15.000000</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>1.000000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>1.000000</izz>
+				</inertia>
+			</inertial>
+			<collision name="track_link1_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>0.001000 0.001000 0.001000</scale>
+						<!-- <uri>model://wamtrack/meshes/carriage.stl</uri> -->
+						<!-- <uri>model://track_model_ros/meshes/carriage.stl</uri> -->
+						<uri>model://wamtrack/meshes/carriage.STL</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="track_link1_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>0.001000 0.001000 0.001000</scale>
+						<!-- <uri>model://wamtrack/meshes/carriage.stl</uri> -->
+						<!-- <uri>model://track_model_ros/meshes/carriage.stl</uri> -->
+						<uri>model://wamtrack/meshes/carriage.STL</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+        <joint name="t1_joint" type="prismatic">
+			<child>track_link1</child>
+			<parent>track_link0</parent>
+			<axis>
+                <xyz>1.000000 0.000000 0.000000</xyz>
+				<limit>
+					<!-- <lower>-2.00000</lower>
+					<upper>2.00000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+                    <lower>-0.8638</lower>
+					<upper>0.8636</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>1</damping>
+				</dynamics>
+			</axis>
+		</joint>
+    
+    <!-- wam -->
+        <link name="wam_link0">
+			<!-- <pose>0.220000 0.140000 0.346000 0.000000 0.000000 0.000000</pose> -->
+            <pose>0.220000 0.140000 1.1588 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>20.000000</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>1.000000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>1.000000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link0_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wambase.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link0_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wambase.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<!-- <joint name="wam0_fix" type="revolute">
+			<child>wam_link0</child>
+			<parent>world</parent>
+			<axis>
+				<limit>
+					<lower>0.000000</lower>
+					<upper>0.000000</upper>
+				</limit>
+				<dynamics>
+					<damping>0.000000</damping>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint> -->
+        <joint name="wam0_fix" type="fixed">
+			<child>wam_link0</child>
+			<parent>track_link1</parent>
+			<axis>
+				<limit>
+					<lower>0.000000</lower>
+					<upper>0.000000</upper>
+				</limit>
+				<dynamics>
+					<damping>0.000000</damping>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+		<link name="wam_link1">
+			<!-- <pose>0.220000 0.140000 0.346000 0.000000 0.000000 0.000000</pose> -->
+            <pose>0.220000 0.140000 1.1588 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>8.393600</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>1.000000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>1.000000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link1_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam1.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link1_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam1.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j1_joint" type="revolute">
+			<child>wam_link1</child>
+			<parent>wam_link0</parent>
+			<axis>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+				<limit>
+					<lower>-2.600000</lower>
+					<upper>2.600000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>1</damping>
+					<!--default value is 100 -->
+					<!-- <damping>100.000000</damping> -->
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="wam_link2">
+			<!-- <pose>0.220000 0.140000 0.346000 0.000000 0.000000 0.000000</pose> -->
+            <pose>0.220000 0.140000 1.1588 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>4.848700</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link2_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam2.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link2_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam2.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j2_joint" type="revolute">
+			<child>wam_link2</child>
+			<parent>wam_link1</parent>
+			<axis>
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<limit>
+					<lower>-1.97</lower>
+					<upper>1.970000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="wam_link3">
+			<!-- <pose>0.220000 0.140000 0.346000 0.000000 0.000000 0.000000</pose> -->
+            <pose>0.220000 0.140000 1.1588 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.225000 0.000000 0.000000 0.000000</pose>
+				<mass>1.725100</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link3_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam3.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link3_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam3.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j3_joint" type="revolute">
+			<child>wam_link3</child>
+			<parent>wam_link2</parent>
+			<axis>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+				<limit>
+					<lower>-2.800000</lower>
+					<upper>2.800000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="wam_link4">
+			<!-- <pose>0.265000 0.140000 0.896000 -1.570800 0.000000 0.000000</pose> -->
+            <pose>0.265000 0.140000 1.7088 -1.570800 0.000000 0.000000</pose>
+			<inertial>
+				<pose>-0.045000 -0.150000 0.000000 0.000000 0.000000 0.000000</pose>
+				<!-- <mass>2.082400</mass> -->
+                <mass>2.172700</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link4_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam4.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link4_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam4.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j4_joint" type="revolute">
+			<child>wam_link4</child>
+			<parent>wam_link3</parent>
+			<axis>
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<limit>
+					<lower>-0.900000</lower>
+					<upper>3.10000</upper>
+					<effort>35.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="wam_link5">
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+            <pose>0.220000 0.140000 2.0088 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<!-- <mass>0.306700</mass> -->
+                <mass>0.356600</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link5_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam5.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link5_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam5.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j5_joint" type="revolute">
+			<child>wam_link5</child>
+			<parent>wam_link4</parent>
+			<axis>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+				<limit>
+					<lower>-4.760000</lower>
+					<upper>1.240000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="wam_link6">
+			<!-- <pose>0.220000 0.140000 1.196000 -1.570800 0.000000 0.000000</pose> -->
+            <pose>0.220000 0.140000 2.0088 -1.570800 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<!-- <mass>0.427800</mass> -->
+                <mass>0.409200</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link6_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam6.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link6_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam6.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j6_joint" type="revolute">
+			<child>wam_link6</child>
+			<parent>wam_link5</parent>
+			<axis>
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<limit>
+					<lower>-1.500000</lower>
+					<upper>1.500000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
+				</dynamics>
+			</axis>
+		</joint>
+		<link name="wam_link7">
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+            <pose>0.220000 0.140000 2.0088 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<!-- <mass>0.055700</mass> -->
+                <mass>0.075500</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link7_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/wam7.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link7_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/wam7.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j7_joint" type="revolute">
+			<child>wam_link7</child>
+			<parent>wam_link6</parent>
+			<axis>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper> -->
+                    <lower>-2.200000</lower>
+					<upper>2.200000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>100.000000</damping>
+					<!-- <damping>100.000000</damping> -->
+				</dynamics>
+			</axis>
+		</joint>
+
+		<!-- added for hand -->
+		<!-- please see hand.urdf.xacro for more information -->
+		<link name="wam_link8"> <!-- palm -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+            <pose>0.220000 0.140000 2.0088 0.000000 0.000000 0.000000</pose>
+			<!-- <pose>0.220000 0.140000 1.256000 0.000000 0.000000 0.000000</pose> -->
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<!-- <mass>0.055700</mass> -->
+				<mass>0.50573</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+					<!-- <ixx>3.8374e-005</ixx>
+					<ixy>-5.604e-008</ixy>
+					<ixz>-4.2034e-005</ixz>
+					<iyy>0.00022405</iyy>
+					<iyz>1.3283e-007</iyz>
+					<izz>0.00020045</izz> -->
+				</inertia>
+			</inertial>
+			<collision name="wam_link8_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_base.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link8_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_base.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j8_joint" type="fixed">
+			<child>wam_link8</child>
+			<parent>wam_link7</parent>
+			<axis>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>0.000000</lower>
+					<upper>3.141592</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+
+		<link name="wam_link9"> <!-- finger base (1) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.220000 0.140000 1.329000 0.000000 0.000000 -3.141592</pose> -->
+            <pose>0.220000 0.140000 2.1418 0.000000 0.000000 -3.141592</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<!-- <mass>0.055700</mass> -->
+				<mass>0.14109</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link9_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link1.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link9_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link1.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j9_joint" type="fixed">
+			<child>wam_link9</child>
+			<parent>wam_link8</parent>
+			<axis>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+				<limit>
+					<lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+		<link name="wam_link10"> <!-- finger mid (1) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.170500 0.140000 1.333000 -1.570796 3.201592 0.000000</pose> -->
+            <pose>0.170500 0.140000 2.1458 -1.570796 3.201592 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.062139</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link10_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link2.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link10_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link2.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j10_joint" type="revolute">
+			<child>wam_link10</child>
+			<parent>wam_link9</parent>
+			<axis>
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<!-- <xyz>1.000000 0.000000 0.000000</xyz> -->
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>0.000000</lower>
+					<upper>3.141592</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+		<link name="wam_link11"> <!-- finger end (1) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.100500 0.140000 1.337100 -1.570796 4.101592 0.000000</pose> -->
+            <pose>0.100500 0.140000 2.1499 -1.570796 4.101592 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.041377</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link11_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link3.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link11_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link3.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j11_joint" type="revolute">
+			<child>wam_link11</child>
+			<parent>wam_link10</parent>
+			<axis>
+				<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<!-- <xyz>1.000000 0.000000 0.000000</xyz> -->
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>-0.83775804095</lower>
+					<upper>0</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+
+		<!--  -->
+		<link name="wam_link12"> <!-- finger base (2) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.220000 0.165000 1.329000 0.000000 0.000000 -3.141592</pose> -->
+            <pose>0.220000 0.165000 2.1418 0.000000 0.000000 -3.141592</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.14109</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link12_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link1.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link12_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link1.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j12_joint" type="revolute">
+			<child>wam_link12</child>
+			<parent>wam_link8</parent>
+			<axis>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>-6.283185</lower>
+					<upper>0.000000</upper>
+					<effort>1.000000</effort>
+					<velocity>1.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+		<link name="wam_link13"> <!-- finger mid (2) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.170500 0.165000 1.333000 -1.570796 3.201592 0.000000</pose> -->
+            <pose>0.170500 0.165000 2.1458 -1.570796 3.201592 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.062139</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link13_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link2.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link13_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link2.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j13_joint" type="revolute">
+			<child>wam_link13</child>
+			<parent>wam_link12</parent>
+			<axis>
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<!-- <xyz>1.000000 0.000000 0.000000</xyz> -->
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>0.000000</lower>
+					<upper>2.44346095279</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+		<link name="wam_link14"> <!-- finger end (2) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.100500 0.165000 1.337100 -1.570796 4.101592 0.000000</pose> -->
+            <pose>0.100500 0.165000 2.1499 -1.570796 4.101592 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.041377</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link14_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link3.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link14_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link3.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j14_joint" type="revolute">
+			<child>wam_link14</child>
+			<parent>wam_link13</parent>
+			<axis>
+				<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<!-- <xyz>1.000000 0.000000 0.000000</xyz> -->
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>-0.83775804095</lower>
+					<upper>0</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+
+		<!--  -->
+		<link name="wam_link15"> <!-- finger base (3) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.220000 0.115000 1.329000 0.000000 0.000000 -3.141592</pose> -->
+            <pose>0.220000 0.115000 2.1418 0.000000 0.000000 -3.141592</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.14109</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link15_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link1.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link15_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link1.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j15_joint" type="revolute">
+			<child>wam_link15</child>
+			<parent>wam_link8</parent>
+			<axis>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>0.000000</lower>
+					<upper>6.283185</upper>
+					<effort>1.000000</effort>
+					<velocity>1.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+		<link name="wam_link16"> <!-- finger mid (3) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.170500 0.115000 1.333000 -1.570796 3.201592 0.000000</pose> -->
+            <pose>0.170500 0.115000 2.1458 -1.570796 3.201592 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.062139</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link16_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link2.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link16_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link2.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j16_joint" type="revolute">
+			<child>wam_link16</child>
+			<parent>wam_link15</parent>
+			<axis>
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<!-- <xyz>1.000000 0.000000 0.000000</xyz> -->
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>0.000000</lower>
+					<upper>2.44346095279</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+
+		<link name="wam_link17"> <!-- finger end (3) -->
+			<!-- <pose>0.220000 0.140000 1.196000 0.000000 0.000000 0.000000</pose> -->
+			<!-- <pose>0.155000 0.155000 1.350000 0.000000 0.000000 -1.570796</pose> -->
+			<!-- <pose>0.100500 0.115000 1.337100 -1.570796 4.101592 0.000000</pose> -->
+            <pose>0.100500 0.115000 2.1499 -1.570796 4.101592 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.041377</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="wam_link17_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/bh_link3.stl</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wam_link17_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+				<mesh>
+					<scale>1.000000 1.000000 1.000000</scale>
+					<uri>model://wamtrack/meshes/bh_link3.stl</uri>
+				</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+		<joint name="j17_joint" type="revolute">
+			<child>wam_link17</child>
+			<parent>wam_link16</parent>
+			<axis>
+				<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
+				<xyz>0.000000 1.000000 0.000000</xyz>
+				<!-- <xyz>1.000000 0.000000 0.000000</xyz> -->
+				<limit>
+					<!-- <lower>-3.000000</lower>
+					<upper>3.000000</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity> -->
+					<lower>-0.83775804095</lower>
+					<upper>0</upper>
+					<effort>5.000000</effort>
+					<velocity>5.000000</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>100.000000</damping> -->
+					<damping>0.11</damping>
+				</dynamics>
+			</axis>
+		</joint>
+		<!-- end -->
+    <plugin name="ros_wamtrack_plugin" filename="build/libros_wamtrack_plugin.so" />
+	</model>
+</sdf>
