@@ -50,13 +50,15 @@ RevoluteDH(d=0.060, I=[0.00003773, 0.00003806, 0.00007408, -0.00000019, 0, 0]), 
 
 """ start at random configuration (ignoring collision) """
 np.random.seed(0)
-angles_start = np.random.uniform(0, 2*np.pi, (7,))
-print(angles_start) #added for checking
+# angles_start = np.random.uniform(0, 2*np.pi, (7,))
+angles_start = np.zeros(7) # to start from upright position
+print("angles_start", angles_start) #added for checking
 T_start = robot.fkine(angles_start)
 
 """ find reachable desired end configuation for joints """
-angles_end_hidden = np.random.uniform(0, 2*np.pi, (7,)) # this is not actually known
-print(angles_end_hidden) #added for checking
+# angles_end_hidden = np.random.uniform(0, 2*np.pi, (7,)) # this is not actually known
+angles_end_hidden = np.ones(7)
+print("angles_end_hidden", angles_end_hidden) #added for checking
 T_end = robot.fkine(angles_end_hidden)
 
 """ iterate joints to find path """
