@@ -72,16 +72,7 @@ namespace gazebo {
       this->j5 = this->model->GetJoint("j5_joint"); 
       this->j6 = this->model->GetJoint("j6_joint"); 
       this->j7 = this->model->GetJoint("j7_joint");
-      // this->t1 = this->model->GetJoint("t1_joint");
-
-      // // revised joint names for new sdf
-      // this->j1 = this->model->GetJoint("base_yaw_joint"); 
-      // this->j2 = this->model->GetJoint("shoulder_pitch_joint"); 
-      // this->j3 = this->model->GetJoint("shoulder_yaw_joint"); 
-      // this->j4 = this->model->GetJoint("elbow_pitch_joint"); 
-      // this->j5 = this->model->GetJoint("wrist_yaw_joint"); 
-      // this->j6 = this->model->GetJoint("wrist_pitch_joint"); 
-      // this->j7 = this->model->GetJoint("palm_yaw_joint"); 
+      this->t1 = this->model->GetJoint("t1_joint"); 
       
       // Set a joint controller to associate itself with our WAM model.
       this->WAM_joint_controller = new physics::JointController(model);
@@ -128,7 +119,7 @@ namespace gazebo {
         WAM_joint_controller->SetJointPosition(j5, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
         WAM_joint_controller->SetJointPosition(j6, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
         WAM_joint_controller->SetJointPosition(j7, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
-        // WAM_joint_controller->SetJointPosition(t1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
+        WAM_joint_controller->SetJointPosition(t1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
 
         this->current_joint_trajectory_point++;
           // If we're at the end of the trajectory, reset the point counter
@@ -167,8 +158,7 @@ namespace gazebo {
     private: physics::JointController * WAM_joint_controller;   
     // Pointer to the update event connection
     private: event::ConnectionPtr updateConnection;
-    // private: gazebo::physics::JointPtr j1, j2, j3, j4, j5, j6, j7, t1;
-    private: gazebo::physics::JointPtr j1, j2, j3, j4, j5, j6, j7;
+    private: gazebo::physics::JointPtr j1, j2, j3, j4, j5, j6, j7, t1;
     // private: gazebo::physics::JointPtr t1;
     private: common::Time current_gazebo_time;
     private: bool have_a_trajectory;

@@ -1,0 +1,1026 @@
+<!--
+    The WAM + track SDF model wombo-combo (WAMtrack).
+    Meticulously tossed together by Nicole Baptist
+
+    Be warned that this was made for a 9/8-week-long project,
+    so viewer discretion is advised.
+
+    DIMENSIONS BORROWED FROM MY OTHER DISASTER, track.sdf:
+    Approximate dimensions of track:
+        length: 9'		2.7432 m
+        width:  8.5"	0.2159 m
+        height: 15"		0.381 m
+    
+    Approximate dimensions of moveable components:
+        length: 40"		1.016 m
+        width:  17"		0.4318 m
+        height: 17"		0.4318 m
+    -->
+<?xml version="1.0" ?>
+<sdf version="1.4">
+	<model name="wamtrack">
+  <!-- track -->
+		<!-- <link name="track_link0">
+          <pose>-1.23248 0.07183 0.000000 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>200.000000</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>1.000000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>1.000000</izz>
+				</inertia>
+			</inertial>
+			<collision name="track_link0_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>0.001000 0.001000 0.001000</scale>
+						<uri>model://wamtrack/meshes/track.STL</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="track_link0_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>0.001000 0.001000 0.001000</scale>
+						<uri>model://wamtrack/meshes/track.STL</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+    <joint name="track0_fix" type="fixed">
+			<child>track_link0</child>
+			<parent>world</parent>
+			<axis>
+				<limit>
+					<lower>0.000000</lower>
+					<upper>0.000000</upper>
+				</limit>
+				<dynamics>
+					<damping>0.000000</damping>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+		<link name="track_link1">
+            <pose>-0.36888 -0.03612 0.381 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>15.000000</mass>
+				<inertia>
+					<ixx>1.000000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>1.000000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>1.000000</izz>
+				</inertia>
+			</inertial>
+			<collision name="track_link1_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>0.001000 0.001000 0.001000</scale>
+						<uri>model://wamtrack/meshes/carriage.STL</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="track_link1_vis">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>0.001000 0.001000 0.001000</scale>
+						<uri>model://wamtrack/meshes/carriage.STL</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+    <joint name="t1_joint" type="prismatic">
+			<child>track_link1</child>
+			<parent>track_link0</parent>
+			<axis>
+                <xyz>1.000000 0.000000 0.000000</xyz>
+				<limit>
+          <lower>-0.8638</lower>
+					<upper>0.8636</upper>
+					<effort>30.000000</effort>
+					<velocity>2.000000</velocity>
+				</limit>
+				<dynamics>
+					<damping>1</damping>
+				</dynamics>
+			</axis>
+		</joint> -->
+    
+  <!-- wam -->
+    <joint name="wam_fixed_joint" type="fixed">
+			<child>base_link</child>
+			<parent>world</parent>
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>0.000000</lower>
+					<upper>0.000000</upper>
+				</limit>
+				<dynamics>
+					<damping>1.000000</damping>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="base_link">
+      <pose>0.00000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>1.000000</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.100000</ixx>
+					<ixy>0.000000</ixy>
+					<ixz>0.000000</ixz>
+					<iyy>0.100000</iyy>
+					<iyz>0.000000</iyz>
+					<izz>0.100000</izz>
+				</inertia>
+			</inertial>
+			<collision name="base_link_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/base_link_convex.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="base_link_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/base_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+    <joint name="base_yaw_joint" type="revolute">
+			<child>shoulder_yaw_link</child>
+			<parent>base_link</parent>
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>-2.60</lower>
+					<upper>2.60</upper>
+          <effort>60.0</effort>
+          <velocity>2.00</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>0.900000</damping> -->
+          <damping>1.980000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="shoulder_yaw_link">
+      <pose>0.000000 0.000000 0.346000 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>-0.004434 -0.000665 -0.128904 0.000000 0.000000 0.000000</pose>
+				<mass>5.000000</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.13488033</ixx>
+					<ixy>-0.00012485</ixy>
+					<ixz>0.00213041</ixz>
+					<iyy>0.09046330</iyy>
+					<iyz>-0.00068555</iyz>
+					<izz>0.11328369</izz>
+				</inertia>
+			</inertial>
+			<collision name="shoulder_yaw_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/shoulder_link_convex_decomposition.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="shoulder_yaw_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/shoulder_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+    <joint name="shoulder_pitch_joint" type="revolute">
+			<child>shoulder_pitch_link</child>
+			<parent>shoulder_yaw_link</parent>
+      <!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>-1.985</lower>
+					<upper>1.985</upper>
+          <effort>60.0</effort>
+          <velocity>2.00</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>0.250000</damping> -->
+          <damping>0.550000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+				<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
+        <xyz>0.000000 1.000000 0.000000</xyz>
+			</axis>
+		</joint>
+    <link name="shoulder_pitch_link">
+      <!-- <pose>0.000000 0.000000 0.346000 -1.57079632679 0.000000 0.000000</pose> -->
+      <pose>0.000000 0.000000 0.346000 -1.570801 0.000000 0.000000</pose>
+			<inertial>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>-0.002370 -0.015421 0.031056 0.000000 0.000000 0.000000</pose>
+				<mass>3.87493756</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.02140958</ixx>
+					<ixy>-0.00002461</ixy>
+					<ixz>0.00027172</ixz>
+					<iyy>0.015589060</iyy>
+					<iyz>0.0018192</iyz>
+					<izz>0.01377875</izz>
+				</inertia>
+			</inertial>
+			<collision name="shoulder_pitch_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/shoulder_pitch_link_convex.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="shoulder_pitch_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/shoulder_pitch_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<self_collide>1</self_collide>
+		</link>
+    <joint name="shoulder_yaw_joint" type="revolute">
+			<child>upper_arm_link</child>
+			<parent>shoulder_pitch_link</parent>
+      <!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>-2.80</lower>
+					<upper>2.80</upper>
+          <effort>45.0</effort>
+          <velocity>2.00</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>0.750000</damping> -->
+          <damping>1.650000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="upper_arm_link">
+      <!-- <pose>0.000000 0.000000 0.346000 -1.57079632679 0.000000 0.000000</pose> -->
+      <pose>0.00000 0.000000 0.346000 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>0.006833 0.000033 0.392492 0.000000 0.000000 0.000000</pose>
+				<mass>2.20228141</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.05911077</ixx>
+					<ixy>-0.00000738</ixy>
+					<ixz>-0.00249612</ixz>
+					<iyy>0.05927043</iyy>
+					<iyz>0.00001767</iyz>
+					<izz>0.0032455</izz>
+				</inertia>
+			</inertial>
+			<collision name="upper_arm_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/upper_arm_link_convex_decomposition.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="upper_arm_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/upper_arm_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
+		</link>
+    <joint name="elbow_pitch_joint" type="revolute">
+			<child>elb_link</child>
+			<parent>upper_arm_link</parent>
+      <!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>-0.9</lower>
+					<upper>3.14159265</upper>
+          <effort>30.0</effort>
+          <velocity>2.00</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>0.400000</damping> -->
+          <damping>0.880000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+				<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
+        <xyz>0.000000 1.000000 0.000000</xyz>
+			</axis>
+		</joint>
+    <link name="elb_link">
+      <!-- <pose>0.000000 0.000000 0.346000 -1.57079632679 0.000000 0.000000</pose> -->
+      <!-- <pose>0.00000 0.000000 0.346000 0.000000 0.000000 0.000000</pose> -->
+      <!-- <pose>0.050000 0.000000 0.896000 -1.57079632679 0.000000 0.000000</pose> -->
+      <!-- <pose>0.045 0.000000 0.896000 -1.57079632679 0.000000 0.000000</pose> --> <!-- working -->
+      <pose>0.045 0.000000 0.896000 -1.570801 0.000000 0.000000</pose>
+			<inertial>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>-0.040015 -0.142717 -0.000229 0.000000 0.000000 0.000000</pose>
+				<mass>0.50016804</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.01491672</ixx>
+					<ixy>0.00150604</ixy>
+					<ixz>0.00001741</ixz>
+					<iyy>0.00294463</iyy>
+					<iyz>0.00002109</iyz>
+					<izz>0.01482988</izz>
+				</inertia>
+			</inertial>
+			<collision name="elb_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/elbow_link_convex.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="elb_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/elbow_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
+		</link>
+    <!-- -->
+    <joint name="elbow_fixed_joint" type="fixed">
+			<child>forearm_link</child>
+			<parent>elb_link</parent>
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>0.0</lower>
+					<upper>0.0</upper>
+          <effort>0.0</effort>
+          <velocity>0.00</velocity>
+				</limit>
+				<dynamics>
+					<damping>0.000000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="forearm_link">
+      <pose>0.000 0.000000 0.969 0.000000 0.000000 0.000000</pose> <!-- 0.896000+0.0730 = 0.969-->
+      <!-- <pose>-0.045 -0.0730 0.896000 -1.57079632679 0.000000 0.000000</pose> -->
+      <!-- <pose>0.00 -0.0730 0.896000 0.00 0.000000 0.000000</pose> -->
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.50016804</mass>
+				<inertia>
+					<ixx>0.01491672</ixx>
+					<ixy>0.00150604</ixy>
+					<ixz>0.00001741</ixz>
+					<iyy>0.00294463</iyy>
+					<iyz>0.00002109</iyz>
+					<izz>0.01482988</izz>
+				</inertia>
+			</inertial>
+			<collision name="forearm_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/forearm_link_convex_decomposition.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="forearm_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/forearm_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
+		</link>
+    <!-- 
+
+
+
+     -->
+    <joint name="wrist_yaw_joint" type="revolute">
+			<child>wrist_yaw_link</child>
+			<parent>forearm_link</parent>
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>-4.55</lower>
+					<upper>1.25</upper>
+          <effort>10.0</effort>
+          <velocity>2.00</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>0.250000</damping> -->
+          <damping>0.550000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="wrist_yaw_link">
+      <!-- <pose>0.045000 0.000000 0.896000 0.00000 0.000000 0.000000</pose> -->
+      <!-- <pose>0.000000 0.000000 1.196 0.000000 0.000000 0.000000</pose> --> <!-- 0.896000m + (850mm-550mm) = 1.196 -->
+      <pose>0.000000 0.000001 1.196 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>0.000089 0.004358 -0.005112 0.000000 0.000000 0.000000</pose>
+				<mass>1.05376019</mass>
+				<inertia>
+					<ixx>0.00005029</ixx>
+					<ixy>0.00000020</ixy>
+					<ixz>0.00007582</ixz>
+					<iyy>0.00007582</iyy>
+					<iyz>-0.00000359</iyz>
+					<izz>0.00006270</izz>
+				</inertia>
+			</inertial>
+			<collision name="wrist_yaw_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_yaw_link_convex_decomposition.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wrist_yaw_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_yaw_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
+		</link>
+		<joint name="wrist_pitch_joint" type="revolute">
+			<child>wrist_pitch_link</child>
+			<parent>wrist_yaw_link</parent>
+      <!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>-1.5707</lower>
+					<upper>1.5707</upper>
+          <effort>10.0</effort>
+          <velocity>2.00</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>0.050000</damping> -->
+          <damping>0.110000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="wrist_pitch_link">
+      <!-- <pose>0.045000 0.000000 0.896000 0.00000 0.000000 0.000000</pose> -->
+      <!--<pose>0.000000 0.000000 1.001 -1.57079632679 0.000000 0.000000</pose>--> <!-- +++ HAD TO EDIT THE Z POSE -->
+      <!-- <pose>0.000000 0.000000 1.2 -1.57079632679 0.000000 0.000000</pose> -->
+      <!-- <pose>0.000000 0.000000 1.20 -1.57079632679 0.000000 0.000000</pose> -->
+      <!-- <pose>0.000000 0.000000 1.205 -1.57079632679 0.000000 0.000000</pose> --> <!-- 1.196+((0.910-0.850)/2) = 1.226 -->
+      <pose>0.000000 0.000001 1.196 -1.570801 0.000000 0.000000</pose>
+			<inertial>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>-0.000123 -0.024683 -0.017032 0.000000 0.000000 0.000000</pose>
+				<mass>0.51797364</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.00055516</ixx>
+					<ixy>0.00000061</ixy>
+					<ixz>-0.00000074</ixz>
+					<iyy>0.00024367</iyy>
+					<iyz>-0.00004590</iyz>
+					<izz>0.00045358</izz>
+				</inertia>
+			</inertial>
+			<collision name="wrist_pitch_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_pitch_link_convex_decomposition.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wrist_pitch_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_pitch_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
+		</link>
+    <joint name="palm_yaw_joint" type="revolute">
+			<child>wrist_palm_link</child>
+			<parent>wrist_pitch_link</parent>
+      <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>-3.0</lower>
+					<upper>3.0</upper>
+          <effort>10.0</effort>
+          <velocity>2.00</velocity>
+				</limit>
+				<dynamics>
+					<damping>0.050000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="wrist_palm_link">
+      <!-- <pose>0.000000 0.000000 1.205 0.000000 0.000000 0.000000</pose> --> <!-- 1.196+((0.910-0.850)/2) = 1.226 -->
+      <pose>0.000000 0.000000 1.196 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.08286134</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.00010859</ixx>
+					<ixy>0.00000000</ixy>
+					<ixz>-0.00000000</ixz>
+					<iyy>0.00020683</iyy>
+					<iyz>-0.00000000</iyz>
+					<izz>0.00010851</izz>
+				</inertia>
+			</inertial>
+			<collision name="wrist_palm_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_palm_link_convex.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wrist_palm_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_palm_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
+		</link>
+    <!-- <joint name="wam0_fix" type="revolute">
+			<child>wam_link0</child>
+			<parent>world</parent>
+			<axis>
+				<limit>
+					<lower>0.000000</lower>
+					<upper>0.000000</upper>
+				</limit>
+				<dynamics>
+					<damping>0.000000</damping>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint> -->
+    <joint name="bhand_base_joint" type="fixed">
+			<child>bhand_palm_link</child>
+			<parent>wrist_palm_link</parent>
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>0.0</lower>
+					<upper>0.0</upper>
+          <effort>0.0</effort>
+          <velocity>0.00</velocity>
+				</limit>
+				<dynamics>
+					<damping>0.000000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="bhand_palm_link">
+      <!-- <pose>0.000000 0.000000 1.28 0.000000 0.000000 0.000000</pose> -->
+      <pose>0.000000 0.000000 1.256 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.50573</mass>
+				<inertia>
+					<ixx>3.8374e-005</ixx>
+					<ixy>-5.604e-008</ixy>
+					<ixz>-4.2034e-005</ixz>
+					<iyy>0.00022405</iyy>
+					<iyz>1.3283e-007</iyz>
+					<izz>0.00020045</izz>
+				</inertia>
+			</inertial>
+			<collision name="bhand_palm_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/bhand/bhand_palm_link_convex_decomposition.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="bhand_palm_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/bhand/bhand_palm_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
+		</link>
+    <joint name="prox1_joint" type="revolute">
+			<child>prox1_link</child>
+			<parent>bhand_palm_link</parent>
+      <!-- <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose> -->
+      <pose>0.025 0.00 0.0415 0.00 0.00 -1.57079632679</pose>
+			<axis>
+				<limit>
+					<lower>0.0</lower>
+					<upper>3.14159265359</upper>
+          <effort>5.0</effort>
+          <velocity>5.00</velocity>
+				</limit>
+				<dynamics>
+					<!-- <damping>0.000000</damping> -->
+          <damping>0.110000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+        <!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
+        <xyz>0.000000 0.000000 -1.000000</xyz>
+			</axis>
+		</joint>
+    <link name="prox1_link">
+      <!-- <pose>0.000000 0.000000 1.256 0.000000 0.000000 0.000000</pose> -->
+      <pose>-0.025000 0.000001 1.2975 0.000000 0.000000 -1.57079632679</pose>
+      <!-- 
+
+
+        OVER HERE!
+
+
+
+       -->
+			<inertial>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>0.025 0.00 0.0415 0.00 0.00 -1.57079632679</pose>
+				<mass>0.14109</mass>
+				<inertia>
+					<ixx>4.872e-006</ixx>
+					<ixy>1.7103e-006</ixy>
+					<ixz>3.4041e-008</ixz>
+					<iyy>7.6588e-005</iyy>
+					<iyz>2.3133e-008</iyz>
+					<izz>7.7733e-005</izz>
+				</inertia>
+			</inertial>
+			<collision name="prox1_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/bhand/bhand_finger_prox_link_convex_decomposition.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="prox1_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/bhand/bhand_finger_prox_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
+		</link>
+
+    <plugin name="ros_wamtrack_plugin" filename="build/libros_wamtrack_plugin.so" />
+	</model>
+</sdf>
