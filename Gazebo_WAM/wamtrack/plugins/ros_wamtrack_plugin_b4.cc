@@ -89,17 +89,6 @@ namespace gazebo {
       
       // Set a joint controller to associate itself with our WAM model.
       this->WAM_joint_controller = new physics::JointController(model);
-
-      // // added
-      // // http://gazebosim.org/tutorials?tut=guided_i5
-      // // Setup a P-controller, with a gain of 0.1.
-      // this->pid = common::PID(10, 0, 0);
-
-      // // Apply the P-controller to the joint.
-      // this->model->GetJointController()->SetVelocityPID(
-      // this->joint->GetScopedName(), this->pid);
-      // // end
-
       // Subscribe to the ROS topic "joint_traj" This is published by the
       // included ROS exampleROSNODE.py. The parameter 10 specifies how
       // many trajectories to queue if they come in faster than they are
@@ -111,7 +100,6 @@ namespace gazebo {
       // of this class. It's not needed if Callback is a function external to
       // a class rather than a method.
       this->sub = this->node->subscribe("joint_traj", 10, &ROSModelPlugin::ROSCallback, this);
-      // this->sub = this->node->subscribe("joint_states", 10, &ROSModelPlugin::ROSCallback, this);
       // this->sub = this->node->subscribe("track_traj", 10, &ROSModelPlugin::ROSCallback, this);
       // This allows the OnUpdate() method to be called
       // every time Gazebo computes another iteration.
@@ -124,38 +112,6 @@ namespace gazebo {
       this->current_gazebo_time = this->model->GetWorld()->SimTime();
     }
     
-    // // This is called everytime Gazebo asks for news from our plugin.
-    // // It's also called when the plugin is first loaded. 
-    // void OnUpdate() {
-    //   // See if ROS has a trajectory for us. If not, wait.
-    //   if (this->have_a_trajectory == false){
-    //     ros::spinOnce();
-    //   // If there is a trajectory, see if it's time to move to the next trajectory point.
-    //   } else {
-    //     // This returns the value that Gazebo shows on it's "Sim Time" clock.
-    //     // this->current_gazebo_time = this->model->GetWorld()->GetSimTime(); 
-    //     // this->current_gazebo_time = this->model->GetWorld()->SetSimTime();
-    //     this->current_gazebo_time = this->model->GetWorld()->SimTime();
-    //     // Check if we still have joint coordinates to visit. If we do, has enough time elapsed to make the move?
-    //     if ((this->current_joint_trajectory_point < number_of_joint_trajectory_points) &&
-    //       ((this->current_gazebo_time.Double() - time_when_trajectory_received.Double()) > (*joint_trajectory).points[this->current_joint_trajectory_point].time_from_start.toSec())) {
-    //       //Commands Gazebo to set the joint positions of our model according to the values in our trajectory.
-    //       WAM_joint_controller->SetJointPosition(j1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
-    //       WAM_joint_controller->SetJointPosition(j2, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[1]);
-    //       WAM_joint_controller->SetJointPosition(j3, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[2]);
-    //       WAM_joint_controller->SetJointPosition(j4, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[3]);
-    //       WAM_joint_controller->SetJointPosition(j5, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[4]);
-    //       WAM_joint_controller->SetJointPosition(j6, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[5]);
-    //       WAM_joint_controller->SetJointPosition(j7, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[6]);
-    //       this->current_joint_trajectory_point++;
-    //       }  
-    //       // If we're at the end of the trajectory, reset the point counter
-    //       // and set the flag to look for another trajectory.
-    //       if (this->current_joint_trajectory_point == number_of_joint_trajectory_points){
-    //         this->current_joint_trajectory_point = 0;	  
-    //         this->have_a_trajectory = false;
-    //       }
-    //   }
     // This is called everytime Gazebo asks for news from our plugin.
     // It's also called when the plugin is first loaded. 
     void OnUpdate() {
@@ -170,12 +126,12 @@ namespace gazebo {
         this->current_gazebo_time = this->model->GetWorld()->SimTime();
         //Commands Gazebo to set the joint positions of our model according to the values in our trajectory.
         WAM_joint_controller->SetJointPosition(j1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
-        WAM_joint_controller->SetJointPosition(j2, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[1]);
-        WAM_joint_controller->SetJointPosition(j3, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[2]);
-        WAM_joint_controller->SetJointPosition(j4, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[3]);
-        WAM_joint_controller->SetJointPosition(j5, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[4]);
-        WAM_joint_controller->SetJointPosition(j6, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[5]);
-        WAM_joint_controller->SetJointPosition(j7, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[6]);
+        WAM_joint_controller->SetJointPosition(j2, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
+        WAM_joint_controller->SetJointPosition(j3, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
+        WAM_joint_controller->SetJointPosition(j4, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
+        WAM_joint_controller->SetJointPosition(j5, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
+        WAM_joint_controller->SetJointPosition(j6, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
+        WAM_joint_controller->SetJointPosition(j7, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
         // WAM_joint_controller->SetJointPosition(t1, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
         // WAM_joint_controller->SetJointPosition(j8, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
         // WAM_joint_controller->SetJointPosition(j9, (*joint_trajectory).points[this->current_joint_trajectory_point].positions[0]);
@@ -204,20 +160,12 @@ namespace gazebo {
 
       // added
       ROS_INFO("number of joint trajectory points: %i\n", this->number_of_joint_trajectory_points);
-      // ROS_INFO("should be 7: %i\n", (*msg).points.positions.size()); // she broke
       // this->number_of_joint_trajectory_points = 16;
 
       //Send output to the terminal:
       ROS_INFO("Subscriber got a trajectory");
       //Store the trajectory information for use in the onUpdate function.
       this->joint_trajectory = msg;
-
-      // added for finding where joint angles "go bad"
-      // ROS_INFO("msg: ", this->joint_trajectory);
-      // ROS_INFO("msg: %i\n", msg);
-      // std::cout << this->joint_trajectory << "\n";
-      // printf("%s\n",someString.c_str());
-      // printf("%s\n",string(this->joint_trajectory).c_str()); // she broke
     }
     
     // Pointer to the model
@@ -237,9 +185,6 @@ namespace gazebo {
     private: trajectory_msgs::JointTrajectory::ConstPtr joint_trajectory;
     private: ros::NodeHandle* node;
     ros::Subscriber sub;
-
-    // /// \brief A PID controller for the joint.
-    // private: common::PID pid;
   };
   
   // Register this plugin with the simulator

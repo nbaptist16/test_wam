@@ -15,24 +15,12 @@
         length: 40"		1.016 m
         width:  17"		0.4318 m
         height: 17"		0.4318 m
-	
-	Masses, inertias of each link from:https://github.com/BarrettTechnology/libbarrett/blob/109faf6066b3961426f95fd9748a028cef5fcf16/config/wam7w.conf
-	All units assumed standard metric ig
-		link 1: 10.7677
-		link 2: 3.8749
-		link 3: 1.8023
-		link 4: 2.17266212
-		link 5: 0.35655692
-		link 6: 0.40915886
-		link 7: 0.07548270
-		_____
-		note: other masses commented out from JHU LCSR and BenBlumer
     -->
 <?xml version="1.0" ?>
-	<sdf version="1.4">
+<sdf version="1.4">
 	<model name="wamtrack">
-  <!-- track -->
-		<link name="track_link0">
+  	<!-- track -->
+		<!-- <link name="track_link0">
           <pose>-1.23248 0.07183 0.000000 0.000000 0.000000 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
@@ -80,7 +68,7 @@
 			</velocity_decay>
 			<self_collide>1</self_collide>
 		</link>
-    <joint name="track0_fix" type="fixed">
+    	<joint name="track0_fix" type="fixed">
 			<child>track_link0</child>
 			<parent>world</parent>
 			<axis>
@@ -142,7 +130,7 @@
 			</velocity_decay>
 			<self_collide>1</self_collide>
 		</link>
-    <joint name="t1_joint" type="prismatic">
+    	<joint name="t1_joint" type="prismatic">
 			<child>track_link1</child>
 			<parent>track_link0</parent>
 			<axis>
@@ -157,47 +145,37 @@
 					<damping>1</damping>
 				</dynamics>
 			</axis>
-		</joint>
+		</joint> -->
     
-  <!-- wam -->
-    <joint name="wam_fixed_joint" type="fixed">
-		<child>base_link</child>
-		<!-- <parent>world</parent> -->
-		<parent>track_link1</parent>
-		<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
-		<axis>
-			<limit>
-				<lower>0.000000</lower>
-				<upper>0.000000</upper>
-			</limit>
-			<dynamics>
-				<!-- <damping>1.000000</damping> -->
-				<damping>0.000000</damping>
-			</dynamics>
-			<xyz>0.000000 0.000000 1.000000</xyz>
-		</axis>
-	</joint>
-    <link name="base_link">
-      <!-- <pose>0.00000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
-	  <pose>0.00000 0.000000 0.811800 0.000000 0.000000 0.000000</pose>
+  	<!-- wam -->
+    	<joint name="wam_fixed_joint" type="fixed">
+			<child>base_link</child>
+			<parent>world</parent>
+      		<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>0.000000</lower>
+					<upper>0.000000</upper>
+				</limit>
+				<dynamics>
+					<damping>1.000000</damping>
+				</dynamics>
+				<xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
+		</joint>
+    	<link name="base_link">
+      		<pose>0.00000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<!-- <mass>1.000000</mass> --> <!-- original -->
+				<mass>1.000000</mass>
 				<!-- <mass>20.000000</mass> -->
-				<mass>7.9412394</mass>
 				<inertia>
-					<!-- <ixx>0.100000</ixx>
+					<ixx>0.100000</ixx>
 					<ixy>0.000000</ixy>
 					<ixz>0.000000</ixz>
 					<iyy>0.100000</iyy>
 					<iyz>0.000000</iyz>
-					<izz>0.100000</izz> -->
-					<ixx>1.000000</ixx>
-					<ixy>0.000000</ixy>
-					<ixz>0.000000</ixz>
-					<iyy>1.000000</iyy>
-					<iyz>0.000000</iyz>
-					<izz>1.000000</izz>
+					<izz>0.100000</izz>
 				</inertia>
 			</inertial>
 			<collision name="base_link_collision">
@@ -218,12 +196,12 @@
 				</surface>
 			</collision>
 			<visual name="base_link_vis">
-        <material>
-          <ambient>0.7 0.7 0.7 1</ambient>
-          <diffuse>0.7 0.7 0.7 1</diffuse>
-          <specular>0 0 0 0</specular>
-          <emissive>0 0 0 1</emissive>
-        </material>
+				<material>
+					<ambient>0.7 0.7 0.7 1</ambient>
+					<diffuse>0.7 0.7 0.7 1</diffuse>
+					<specular>0 0 0 0</specular>
+					<emissive>0 0 0 1</emissive>
+				</material>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 				<geometry>
 					<mesh>
@@ -249,40 +227,31 @@
 				<limit>
 					<lower>-2.60</lower>
 					<upper>2.60</upper>
-					<!-- <effort>60.0</effort> -->
-					<effort>30.0</effort>
+					<effort>60.0</effort>
 					<velocity>2.00</velocity>
 				</limit>
 				<dynamics>
-          			<!-- <damping>1.980000</damping> -->
-					<damping>10.000000</damping>
-          			<friction>0.00</friction>
+					<!-- <damping>0.900000</damping> -->
+          <damping>1.980000</damping>
+          <friction>0.00</friction>
 				</dynamics>
 				<xyz>0.000000 0.000000 1.000000</xyz>
 			</axis>
 		</joint>
     <link name="shoulder_yaw_link">
-      <!-- <pose>0.000000 0.000000 0.346000 0.000000 0.000000 0.000000</pose> -->
-	  <pose>0.00000 0.000000 1.1578 0.000000 0.000000 0.000000</pose>
+      <pose>0.000000 0.000000 0.346000 0.000000 0.000000 0.000000</pose>
 			<inertial>
-				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<!-- <pose>-0.004434 -0.000665 -0.128904 0.000000 0.000000 0.000000</pose> --> <!-- original -->
-				<!-- <mass>5.000000</mass> --> <!-- original-->
-				<!-- <mass>8.393600</mass> -->
-				<mass>10.7677</mass>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+				<pose>-0.004434 -0.000665 -0.128904 0.000000 0.000000 0.000000</pose>
+				<mass>5.000000</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
-					<!-- <ixx>0.13488033</ixx>
+					<ixx>0.13488033</ixx>
 					<ixy>-0.00012485</ixy>
 					<ixz>0.00213041</ixz>
 					<iyy>0.09046330</iyy>
 					<iyz>-0.00068555</iyz>
-					<izz>0.11328369</izz> -->
-					<ixx>1</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>1</iyy>
-					<iyz>0</iyz>
-					<izz>1</izz>
+					<izz>0.11328369</izz>
 				</inertia>
 			</inertial>
 			<collision name="shoulder_yaw_collision">
@@ -333,49 +302,36 @@
       		<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
 			<axis>
 				<limit>
-					<!-- <lower>-1.985</lower>
+					<lower>-1.985</lower>
 					<upper>1.985</upper>
           			<effort>60.0</effort>
-          			<velocity>2.00</velocity> -->
-					  <lower>-1.97</lower>
-					<upper>1.97</upper>
-          			<effort>30.0</effort>
           			<velocity>2.00</velocity>
 				</limit>
 				<dynamics>
-          			<!-- <damping>0.550000</damping> -->
-					  <!-- <damping>100</damping> -->
-					  <damping>10.00</damping>
+					<!-- <damping>0.250000</damping> -->
+          			<damping>0.550000</damping>
           			<friction>0.00</friction>
 				</dynamics>
 				<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
 				<xyz>0.000000 1.000000 0.000000</xyz> <!-- best so far, but slightly offset -->
 				<!-- <xyz>0.000000 1.57079632679 0.000000</xyz> -->
 			</axis>
-	</joint>
+		</joint>
     <link name="shoulder_pitch_link">
       <!-- <pose>0.000000 0.000000 0.346000 -1.57079632679 0.000000 0.000000</pose> -->
-      <!-- <pose>0.000000 0.000000 0.346000 -1.570801 0.000000 0.000000</pose> -->
-	  <pose>0.000000 0.000000 1.1578 -1.570801 0.000000 0.000000</pose>
+      <pose>0.000000 0.000000 0.346000 -1.570801 0.000000 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
         		<!-- <pose>-0.002370 -0.015421 0.031056 0.000000 0.000000 0.000000</pose> -->
-				<!-- <mass>3.87493756</mass> --> <!-- original -->
-				<!-- <mass>4.848700</mass> -->
-				<mass>3.8749</mass>
+				<mass>3.87493756</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
-					<!-- <ixx>0.02140958</ixx>
+					<ixx>0.02140958</ixx>
 					<ixy>-0.00002461</ixy>
 					<ixz>0.00027172</ixz>
 					<iyy>0.015589060</iyy>
 					<iyz>0.0018192</iyz>
-					<izz>0.01377875</izz> -->
-					<ixx>1.000000</ixx>
-					<ixy>0.000000</ixy>
-					<ixz>0.000000</ixz>
-					<iyy>0.100000</iyy>
-					<iyz>0.000000</iyz>
-					<izz>0.100000</izz>
+					<izz>0.01377875</izz>
 				</inertia>
 			</inertial>
 			<collision name="shoulder_pitch_collision">
@@ -418,52 +374,42 @@
 			</velocity_decay>
 			<!-- <self_collide>1</self_collide> -->
 			<self_collide>0</self_collide>
-	</link>
+		</link>
     <joint name="shoulder_yaw_joint" type="revolute">
 			<child>upper_arm_link</child>
 			<parent>shoulder_pitch_link</parent>
-			<!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
-			<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+      <!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
 			<axis>
 				<limit>
 					<lower>-2.80</lower>
 					<upper>2.80</upper>
-					<!-- <effort>45.0</effort> -->
-					<effort>30.0</effort>
-					<velocity>2.00</velocity>
+          <effort>45.0</effort>
+          <velocity>2.00</velocity>
 				</limit>
 				<dynamics>
-					<!-- <damping>1.650000</damping> -->
-					<!-- <damping>100</damping> -->
-					<damping>10.00</damping>
-					<friction>0.00</friction>
+					<!-- <damping>0.750000</damping> -->
+          <damping>1.650000</damping>
+          <friction>0.00</friction>
 				</dynamics>
-        		<xyz>0.000000 0.000000 1.000000</xyz>
+        <xyz>0.000000 0.000000 1.000000</xyz>
 			</axis>
-	</joint>
+		</joint>
     <link name="upper_arm_link">
       <!-- <pose>0.000000 0.000000 0.346000 -1.57079632679 0.000000 0.000000</pose> -->
-      <!-- <pose>0.00000 0.000000 0.346000 0.000000 0.000000 0.000000</pose> -->
-	  <pose>0.00000 0.000000 1.1578 0.000000 0.000000 0.000000</pose>
+      <pose>0.00000 0.000000 0.346000 0.000000 0.000000 0.000000</pose>
 			<inertial>
-				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-        		<!-- <pose>0.006833 0.000033 0.392492 0.000000 0.000000 0.000000</pose> -->
-				<!-- <mass>2.20228141</mass> --> <!-- original -->
-				<!-- <mass>1.725100</mass> -->
-				<mass>1.8023</mass>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>0.006833 0.000033 0.392492 0.000000 0.000000 0.000000</pose>
+				<mass>2.20228141</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
-					<!-- <ixx>0.05911077</ixx>
+					<ixx>0.05911077</ixx>
 					<ixy>-0.00000738</ixy>
 					<ixz>-0.00249612</ixz>
 					<iyy>0.05927043</iyy>
 					<iyz>0.00001767</iyz>
-					<izz>0.0032455</izz> -->
-					<ixx>1.000000</ixx>
-					<ixy>0.000000</ixy>
-					<ixz>0.000000</ixz>
-					<iyy>0.100000</iyy>
-					<iyz>0.000000</iyz>
-					<izz>0.100000</izz>
+					<izz>0.0032455</izz>
 				</inertia>
 			</inertial>
 			<collision name="upper_arm_collision">
@@ -506,59 +452,46 @@
 			</velocity_decay>
 			<!-- <self_collide>1</self_collide> -->
       <self_collide>0</self_collide>
-	</link>
+		</link>
     <joint name="elbow_pitch_joint" type="revolute">
 			<child>elb_link</child>
 			<parent>upper_arm_link</parent>
-			<!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
-			<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+      <!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
 			<axis>
 				<limit>
-					<!-- <lower>-0.9</lower>
-					<upper>3.14159265</upper>
-					<effort>30.0</effort>
-					<velocity>2.00</velocity> -->
 					<lower>-0.9</lower>
-					<upper>3.10</upper>
-					<effort>35.0</effort>
-					<velocity>2.00</velocity>
+					<upper>3.14159265</upper>
+          <effort>30.0</effort>
+          <velocity>2.00</velocity>
 				</limit>
 				<dynamics>
-					<!-- <damping>0.880000</damping> -->
-					<!-- <damping>100</damping> -->
-					<damping>10.00</damping>
-					<friction>0.00</friction>
+					<!-- <damping>0.400000</damping> -->
+          <damping>0.880000</damping>
+          <friction>0.00</friction>
 				</dynamics>
 				<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
-        		<xyz>0.000000 1.000000 0.000000</xyz>
+        <xyz>0.000000 1.000000 0.000000</xyz>
 			</axis>
-	</joint>
+		</joint>
     <link name="elb_link">
       <!-- <pose>0.000000 0.000000 0.346000 -1.57079632679 0.000000 0.000000</pose> -->
       <!-- <pose>0.00000 0.000000 0.346000 0.000000 0.000000 0.000000</pose> -->
       <!-- <pose>0.050000 0.000000 0.896000 -1.57079632679 0.000000 0.000000</pose> -->
       <!-- <pose>0.045 0.000000 0.896000 -1.57079632679 0.000000 0.000000</pose> --> <!-- working -->
-      <!-- <pose>0.045 0.000000 0.896000 -1.570801 0.000000 0.000000</pose> -->
-	  <pose>0.045 0.000000 1.7078 -1.570801 0.000000 0.000000</pose>
+      <pose>0.045 0.000000 0.896000 -1.570801 0.000000 0.000000</pose>
 			<inertial>
 				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
-        		<pose>-0.040015 -0.142717 -0.000229 0.000000 0.000000 0.000000</pose>
-				<!-- <mass>0.50016804</mass> --> <!-- original -->
-				<!-- <mass>2.082400</mass> -->
-				<mass>1.08633106</mass>	<!-- 2.17266212/2 = 1.08633106 -->
+        <pose>-0.040015 -0.142717 -0.000229 0.000000 0.000000 0.000000</pose>
+				<mass>0.50016804</mass>
+				<!-- <mass>20.000000</mass> -->
 				<inertia>
-					<!-- <ixx>0.01491672</ixx>
+					<ixx>0.01491672</ixx>
 					<ixy>0.00150604</ixy>
 					<ixz>0.00001741</ixz>
 					<iyy>0.00294463</iyy>
 					<iyz>0.00002109</iyz>
-					<izz>0.01482988</izz> -->
-					<ixx>1.000000</ixx>
-					<ixy>0.000000</ixy>
-					<ixz>0.000000</ixz>
-					<iyy>0.100000</iyy>
-					<iyz>0.000000</iyz>
-					<izz>0.100000</izz>
+					<izz>0.01482988</izz>
 				</inertia>
 			</inertial>
 			<collision name="elb_collision">
@@ -601,50 +534,40 @@
 			</velocity_decay>
 			<!-- <self_collide>1</self_collide> -->
       <self_collide>0</self_collide>
-	</link>
+		</link>
     <!-- -->
     <joint name="elbow_fixed_joint" type="fixed">
 			<child>forearm_link</child>
 			<parent>elb_link</parent>
-      		<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
 			<axis>
 				<limit>
 					<lower>0.0</lower>
 					<upper>0.0</upper>
-					<effort>0.0</effort>
-					<velocity>0.00</velocity>
+          <effort>0.0</effort>
+          <velocity>0.00</velocity>
 				</limit>
 				<dynamics>
 					<damping>0.000000</damping>
-          			<friction>0.00</friction>
+          <friction>0.00</friction>
 				</dynamics>
         <xyz>0.000000 0.000000 1.000000</xyz>
 			</axis>
-	</joint>
+		</joint>
     <link name="forearm_link">
-      <!--<pose>0.000 0.000000 0.969 0.000000 0.000000 0.000000</pose>--> <!-- 0.896000+0.0730 = 0.969-->
-	  <pose>0.000 0.000000 1.7808 0.000000 0.000000 0.000000</pose>
+      <pose>0.000 0.000000 0.969 0.000000 0.000000 0.000000</pose> <!-- 0.896000+0.0730 = 0.969-->
       <!-- <pose>-0.045 -0.0730 0.896000 -1.57079632679 0.000000 0.000000</pose> -->
       <!-- <pose>0.00 -0.0730 0.896000 0.00 0.000000 0.000000</pose> -->
 			<inertial>
-				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
-				<pose>-0.045000 -0.150000 0.000000 0.000000 0.000000 0.000000</pose>
-				<!-- <mass>2.082400</mass> -->
-				<!-- <mass>0.50016804</mass> --> <!-- original -->
-				<mass>1.08633106</mass>	<!-- 2.17266212/2 = 1.08633106 -->
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.50016804</mass>
 				<inertia>
-					<!-- <ixx>0.01491672</ixx>
+					<ixx>0.01491672</ixx>
 					<ixy>0.00150604</ixy>
 					<ixz>0.00001741</ixz>
 					<iyy>0.00294463</iyy>
 					<iyz>0.00002109</iyz>
-					<izz>0.01482988</izz> -->
-					<ixx>1.000000</ixx>
-					<ixy>0.000000</ixy>
-					<ixz>0.000000</ixz>
-					<iyy>0.100000</iyy>
-					<iyz>0.000000</iyz>
-					<izz>0.100000</izz>
+					<izz>0.01482988</izz>
 				</inertia>
 			</inertial>
 			<collision name="forearm_collision">
@@ -687,7 +610,7 @@
 			</velocity_decay>
 			<!-- <self_collide>1</self_collide> -->
       <self_collide>0</self_collide>
-	</link>
+		</link>
     <!-- 
 
 
@@ -696,51 +619,37 @@
     <joint name="wrist_yaw_joint" type="revolute">
 			<child>wrist_yaw_link</child>
 			<parent>forearm_link</parent>
-      		<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
 			<axis>
 				<limit>
-					<!-- <lower>-4.55</lower>
+					<lower>-4.55</lower>
 					<upper>1.25</upper>
-					<effort>10.0</effort>
-					<velocity>2.00</velocity> -->
-					<lower>-4.760000</lower>
-					<upper>1.240000</upper>
-					<effort>30.000000</effort>
-					<velocity>2.000000</velocity>
+          <effort>10.0</effort>
+          <velocity>2.00</velocity>
 				</limit>
 				<dynamics>
-					<!-- <damping>0.550000</damping> -->
-					<!-- <damping>100.000000</damping> -->
-					<damping>10.00</damping>
-					<friction>0.00</friction>
+					<!-- <damping>0.250000</damping> -->
+          <damping>0.550000</damping>
+          <friction>0.00</friction>
 				</dynamics>
-        		<xyz>0.000000 0.000000 1.000000</xyz>
+        <xyz>0.000000 0.000000 1.000000</xyz>
 			</axis>
-	</joint>
+		</joint>
     <link name="wrist_yaw_link">
-			<!-- <pose>0.045000 0.000000 0.896000 0.00000 0.000000 0.000000</pose> -->
-			<!-- <pose>0.000000 0.000000 1.196 0.000000 0.000000 0.000000</pose> --> <!-- 0.896000m + (850mm-550mm) = 1.196 -->
-			<!-- <pose>0.000000 0.000001 1.196 0.000000 0.000000 0.000000</pose> -->
-			<pose>0.000000 0.000001 2.0078 0.000000 0.000000 0.000000</pose>
+      <!-- <pose>0.045000 0.000000 0.896000 0.00000 0.000000 0.000000</pose> -->
+      <!-- <pose>0.000000 0.000000 1.196 0.000000 0.000000 0.000000</pose> --> <!-- 0.896000m + (850mm-550mm) = 1.196 -->
+      <pose>0.000000 0.000001 1.196 0.000000 0.000000 0.000000</pose>
 			<inertial>
-				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-        		<!-- <pose>0.000089 0.004358 -0.005112 0.000000 0.000000 0.000000</pose> -->
-				<!-- <mass>1.05376019</mass> --> <!-- original -->
-				<!-- <mass>0.306700</mass> -->
-				<mass>0.35655692</mass>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>0.000089 0.004358 -0.005112 0.000000 0.000000 0.000000</pose>
+				<mass>1.05376019</mass>
 				<inertia>
-					<!-- <ixx>0.00005029</ixx>
+					<ixx>0.00005029</ixx>
 					<ixy>0.00000020</ixy>
 					<ixz>0.00007582</ixz>
 					<iyy>0.00007582</iyy>
 					<iyz>-0.00000359</iyz>
-					<izz>0.00006270</izz> -->
-					<ixx>1.000000</ixx>
-					<ixy>0.000000</ixy>
-					<ixz>0.000000</ixz>
-					<iyy>0.100000</iyy>
-					<iyz>0.000000</iyz>
-					<izz>0.100000</izz>
+					<izz>0.00006270</izz>
 				</inertia>
 			</inertial>
 			<collision name="wrist_yaw_collision">
@@ -783,86 +692,72 @@
 			</velocity_decay>
 			<!-- <self_collide>1</self_collide> -->
       <self_collide>0</self_collide>
-	</link>
-	<joint name="wrist_pitch_joint" type="revolute">
+		</link>
+		<joint name="wrist_pitch_joint" type="revolute">
 			<child>wrist_pitch_link</child>
 			<parent>wrist_yaw_link</parent>
-			<!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
-			<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+      <!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
+      <pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
 			<axis>
 				<limit>
-					<!-- <lower>-1.5707</lower>
+					<lower>-1.5707</lower>
 					<upper>1.5707</upper>
-					<effort>10.0</effort>
-					<velocity>2.00</velocity> -->
-					<lower>-1.500000</lower>
-					<upper>1.500000</upper>
-					<effort>30.000000</effort>
-					<velocity>2.000000</velocity>
+          <effort>10.0</effort>
+          <velocity>2.00</velocity>
 				</limit>
 				<dynamics>
-					<!-- <damping>0.110000</damping> -->
-					<!-- <damping>100</damping> -->
-					<damping>10.00</damping>
-					<friction>0.00</friction>
+					<!-- <damping>0.050000</damping> -->
+          <damping>0.110000</damping>
+          <friction>0.00</friction>
 				</dynamics>
-        		<!-- <xyz>0.000000 0.000000 1.000000</xyz> -->
-				<xyz>0.000000 1.000000 0.000000</xyz>
+        <xyz>0.000000 0.000000 1.000000</xyz>
 			</axis>
-	</joint>
+		</joint>
     <link name="wrist_pitch_link">
-		<!-- <pose>0.045000 0.000000 0.896000 0.00000 0.000000 0.000000</pose> -->
-		<!--<pose>0.000000 0.000000 1.001 -1.57079632679 0.000000 0.000000</pose>--> <!-- +++ HAD TO EDIT THE Z POSE -->
-		<!-- <pose>0.000000 0.000000 1.2 -1.57079632679 0.000000 0.000000</pose> -->
-		<!-- <pose>0.000000 0.000000 1.20 -1.57079632679 0.000000 0.000000</pose> -->
-		<!-- <pose>0.000000 0.000000 1.205 -1.57079632679 0.000000 0.000000</pose> --> <!-- 1.196+((0.910-0.850)/2) = 1.226 -->
-		<!-- <pose>0.000000 0.000001 1.196 -1.570801 0.000000 0.000000</pose> -->
-		<pose>0.000000 0.000001 2.0078 -1.570801 0.000000 0.000000</pose>
-		<inertial>
-			<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-			<!-- <pose>-0.000123 -0.024683 -0.017032 0.000000 0.000000 0.000000</pose> -->
-			<!-- <mass>0.51797364</mass> --> <!-- original -->
-			<!-- <mass>0.427800</mass> -->
-			<mass>0.40915886</mass>
-			<inertia>
-				<!-- <ixx>0.00055516</ixx>
-				<ixy>0.00000061</ixy>
-				<ixz>-0.00000074</ixz>
-				<iyy>0.00024367</iyy>
-				<iyz>-0.00004590</iyz>
-				<izz>0.00045358</izz> -->
-				<ixx>1.000000</ixx>
-				<ixy>0.000000</ixy>
-				<ixz>0.000000</ixz>
-				<iyy>0.100000</iyy>
-				<iyz>0.000000</iyz>
-				<izz>0.100000</izz>
-			</inertia>
-		</inertial>
-		<collision name="wrist_pitch_collision">
-			<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-			<geometry>
-				<mesh>
-					<scale>1.000000 1.000000 1.000000</scale>
-					<uri>model://wamtrack/meshes/trialstl/wrist_pitch_link_convex_decomposition.dae</uri>
-				</mesh>
-			</geometry>
-			<surface>
-				<contact>
-					<ode />
-				</contact>
-				<friction>
-					<ode />
-				</friction>
-			</surface>
-		</collision>
-		<visual name="wrist_pitch_vis">
-			<material>
-			<ambient>0.7 0.7 0.7 1</ambient>
-			<diffuse>0.7 0.7 0.7 1</diffuse>
-			<specular>0 0 0 0</specular>
-			<emissive>0 0 0 1</emissive>
-			</material>
+      <!-- <pose>0.045000 0.000000 0.896000 0.00000 0.000000 0.000000</pose> -->
+      <!--<pose>0.000000 0.000000 1.001 -1.57079632679 0.000000 0.000000</pose>--> <!-- +++ HAD TO EDIT THE Z POSE -->
+      <!-- <pose>0.000000 0.000000 1.2 -1.57079632679 0.000000 0.000000</pose> -->
+      <!-- <pose>0.000000 0.000000 1.20 -1.57079632679 0.000000 0.000000</pose> -->
+      <!-- <pose>0.000000 0.000000 1.205 -1.57079632679 0.000000 0.000000</pose> --> <!-- 1.196+((0.910-0.850)/2) = 1.226 -->
+      <pose>0.000000 0.000001 1.196 -1.570801 0.000000 0.000000</pose>
+			<inertial>
+				<!-- <pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose> -->
+        <pose>-0.000123 -0.024683 -0.017032 0.000000 0.000000 0.000000</pose>
+				<mass>0.51797364</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.00055516</ixx>
+					<ixy>0.00000061</ixy>
+					<ixz>-0.00000074</ixz>
+					<iyy>0.00024367</iyy>
+					<iyz>-0.00004590</iyz>
+					<izz>0.00045358</izz>
+				</inertia>
+			</inertial>
+			<collision name="wrist_pitch_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_pitch_link_convex_decomposition.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wrist_pitch_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
 				<geometry>
 					<mesh>
@@ -871,101 +766,90 @@
 					</mesh>
 				</geometry>
 				<material />
-		</visual>
-		<gravity>1</gravity>
-		<velocity_decay>
-			<linear>0.000000</linear>
-			<angular>0.000000</angular>
-		</velocity_decay>
-		<!-- <self_collide>1</self_collide> -->
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
       <self_collide>0</self_collide>
-	</link>
+		</link>
     <joint name="palm_yaw_joint" type="revolute">
-		<child>wrist_palm_link</child>
-		<parent>wrist_pitch_link</parent>
-		<!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
-		<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
-		<axis>
-			<limit>
-				<lower>-3.0</lower>
-				<upper>3.0</upper>
-				<!-- <effort>10.0</effort> -->
-				<effort>30.0</effort>
-				<velocity>2.00</velocity>
-			</limit>
-			<dynamics>
-				<!-- <damping>0.050000</damping> -->
-				<!-- <damping>100</damping> -->
-				<damping>10.00</damping>
-				<friction>0.00</friction>
-			</dynamics>
-			<xyz>0.000000 0.000000 1.000000</xyz>
-		</axis>
+			<child>wrist_palm_link</child>
+			<parent>wrist_pitch_link</parent>
+      		<!-- <pose>0.00 0.00 0.00 -1.57079632679 0.00 0.00</pose> -->
+			<pose>0.00 0.00 0.00 0.00 0.00 0.00</pose>
+			<axis>
+				<limit>
+					<lower>-3.0</lower>
+					<upper>3.0</upper>
+          <effort>10.0</effort>
+          <velocity>2.00</velocity>
+				</limit>
+				<dynamics>
+					<damping>0.050000</damping>
+          <friction>0.00</friction>
+				</dynamics>
+        <xyz>0.000000 0.000000 1.000000</xyz>
+			</axis>
 	</joint>
     <link name="wrist_palm_link">
-		<!-- <pose>0.000000 0.000000 1.205 0.000000 0.000000 0.000000</pose> --> <!-- 1.196+((0.910-0.850)/2) = 1.226 -->
-		<!-- <pose>0.000000 0.000000 1.196 0.000000 0.000000 0.000000</pose> -->
-		<pose>0.000000 0.000000 2.0078 0.000000 0.000000 0.000000</pose>
-		<inertial>
-			<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-			<!-- <mass>0.08286134</mass> --> <!-- original -->
-			<!-- <mass>0.055700</mass> -->
-			<mass>0.07548270</mass>
-			<inertia>
-				<!-- <ixx>0.00010859</ixx>
-				<ixy>0.00000000</ixy>
-				<ixz>-0.00000000</ixz>
-				<iyy>0.00020683</iyy>
-				<iyz>-0.00000000</iyz>
-				<izz>0.00010851</izz> -->
-				<ixx>1.000000</ixx>
-				<ixy>0.000000</ixy>
-				<ixz>0.000000</ixz>
-				<iyy>0.100000</iyy>
-				<iyz>0.000000</iyz>
-				<izz>0.100000</izz>
-			</inertia>
-		</inertial>
-		<collision name="wrist_palm_collision">
-			<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-			<geometry>
-				<mesh>
-					<scale>1.000000 1.000000 1.000000</scale>
-					<uri>model://wamtrack/meshes/trialstl/wrist_palm_link_convex.dae</uri>
-				</mesh>
-			</geometry>
-			<surface>
-				<contact>
-					<ode />
-				</contact>
-				<friction>
-					<ode />
-				</friction>
-			</surface>
-		</collision>
-		<visual name="wrist_palm_vis">
-			<material>
-			<ambient>0.7 0.7 0.7 1</ambient>
-			<diffuse>0.7 0.7 0.7 1</diffuse>
-			<specular>0 0 0 0</specular>
-			<emissive>0 0 0 1</emissive>
-			</material>
-			<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-			<geometry>
-				<mesh>
-					<scale>1.000000 1.000000 1.000000</scale>
-					<uri>model://wamtrack/meshes/trialstl/wrist_palm_link_fine.stl</uri>
-				</mesh>
-			</geometry>
-			<material />
-		</visual>
-		<gravity>1</gravity>
-		<velocity_decay>
-			<linear>0.000000</linear>
-			<angular>0.000000</angular>
-		</velocity_decay>
-		<!-- <self_collide>1</self_collide> -->
-      	<self_collide>0</self_collide>
+      <!-- <pose>0.000000 0.000000 1.205 0.000000 0.000000 0.000000</pose> --> <!-- 1.196+((0.910-0.850)/2) = 1.226 -->
+      <pose>0.000000 0.000000 1.196 0.000000 0.000000 0.000000</pose>
+			<inertial>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<mass>0.08286134</mass>
+				<!-- <mass>20.000000</mass> -->
+				<inertia>
+					<ixx>0.00010859</ixx>
+					<ixy>0.00000000</ixy>
+					<ixz>-0.00000000</ixz>
+					<iyy>0.00020683</iyy>
+					<iyz>-0.00000000</iyz>
+					<izz>0.00010851</izz>
+				</inertia>
+			</inertial>
+			<collision name="wrist_palm_collision">
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_palm_link_convex.dae</uri>
+					</mesh>
+				</geometry>
+				<surface>
+					<contact>
+						<ode />
+					</contact>
+					<friction>
+						<ode />
+					</friction>
+				</surface>
+			</collision>
+			<visual name="wrist_palm_vis">
+        <material>
+          <ambient>0.7 0.7 0.7 1</ambient>
+          <diffuse>0.7 0.7 0.7 1</diffuse>
+          <specular>0 0 0 0</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
+				<geometry>
+					<mesh>
+						<scale>1.000000 1.000000 1.000000</scale>
+						<uri>model://wamtrack/meshes/trialstl/wrist_palm_link_fine.stl</uri>
+					</mesh>
+				</geometry>
+				<material />
+			</visual>
+			<gravity>1</gravity>
+			<velocity_decay>
+				<linear>0.000000</linear>
+				<angular>0.000000</angular>
+			</velocity_decay>
+			<!-- <self_collide>1</self_collide> -->
+      <self_collide>0</self_collide>
 	</link>
     <!-- <joint name="wam0_fix" type="revolute">
 			<child>wam_link0</child>
@@ -1001,12 +885,10 @@
 		</joint>
     <link name="bhand_palm_link">
       <!-- <pose>0.000000 0.000000 1.28 0.000000 0.000000 0.000000</pose> -->
-      <!-- <pose>0.000000 0.000000 1.256 0.000000 0.000000 0.000000</pose> -->
-	  <pose>0.000000 0.000000 2.0678 0.000000 0.000000 0.000000</pose>
+      <pose>0.000000 0.000000 1.256 0.000000 0.000000 0.000000</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
-				<!-- <mass>0.50573</mass> --> <!-- original -->
-				<mass>0.01</mass>
+				<mass>0.50573</mass>
 				<inertia>
 					<ixx>3.8374e-005</ixx>
 					<ixy>-5.604e-008</ixy>
@@ -1080,13 +962,11 @@
 	</joint>
     <link name="prox1_link">
       <!-- <pose>0.000000 0.000000 1.256 0.000000 0.000000 0.000000</pose> -->
-      <!-- <pose>-0.025000 0.000001 1.2975 0.000000 0.000000 -1.57079632679</pose> -->
-	  <pose>-0.025000 0.000001 2.1093 0.000000 0.000000 -1.57079632679</pose>
+      <pose>-0.025000 0.000001 1.2975 0.000000 0.000000 -1.57079632679</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
         		<!-- <pose>0.025 0.00 0.0415 0.00 0.00 -1.57079632679</pose> -->
-				<!-- <mass>0.14109</mass> --> <!-- original -->
-				<mass>0.01</mass>
+				<mass>0.14109</mass>
 				<inertia>
 					<ixx>4.872e-006</ixx>
 					<ixy>1.7103e-006</ixy>
@@ -1160,13 +1040,11 @@
 	</joint>
     <link name="prox2_link">
       <!-- <pose>0.000000 0.000000 1.256 0.000000 0.000000 0.000000</pose> -->
-      <!-- <pose>0.025000 0.000001 1.2975 0.000000 0.000000 -1.57079632679</pose> -->
-	  <pose>0.025000 0.000001 2.1093 0.000000 0.000000 -1.57079632679</pose>
+      <pose>0.025000 0.000001 1.2975 0.000000 0.000000 -1.57079632679</pose>
 			<inertial>
 				<pose>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000</pose>
         		<!-- <pose>0.025 0.00 0.0415 0.00 0.00 -1.57079632679</pose> -->
-				<!-- <mass>0.14109</mass> --> <!-- original -->
-				<mass>0.01</mass>
+				<mass>0.14109</mass>
 				<inertia>
 					<ixx>4.872e-006</ixx>
 					<ixy>1.7103e-006</ixy>
@@ -1204,7 +1082,7 @@
 				<geometry>
 					<mesh>
 						<scale>1.000000 1.000000 1.000000</scale>
-						<uri>model://wamtrack/meshes/trialstl/bhand/bhand_finger_prox_link_fine.stl</uri>
+						<uri>model://wamtrack/meshes/triaFlstl/bhand/bhand_finger_prox_link_fine.stl</uri>
 					</mesh>
 				</geometry>
 			</visual>
@@ -1214,14 +1092,12 @@
 				<angular>0.000000</angular>
 			</velocity_decay>
 			<!-- <self_collide>1</self_collide> -->
-      <self_collide>0</self_collide>
+      <self_collide>0</self_collide>joints
 	</link>
 	<!--  -->
     
 
-    <!-- <plugin name="ros_wamtrack_plugin" filename="build/libros_wamtrack_plugin.so" /> -->
-	<!-- <plugin name="ros_wamtrack_plugin_v2" filename="build/libros_wamtrack_plugin_v2.so" /> -->
-	<plugin name="ros_wamtrack_plugin" filename="build/libros_wamtrack_plugin.so" />
-	<!-- ^ see lines 40-58 in wamtrack/build.cmake_install.cmake -->
+    <plugin name="ros_wamtrack_plugin" filename="build/libros_wamtrack_plugin.so" />
+	<!-- <plugin name="ros_wamtrack_plugin_v2" filename="build/libros_wamtrack_plugin.so" /> -->
 	</model>
 </sdf>

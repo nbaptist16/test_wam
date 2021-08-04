@@ -150,15 +150,15 @@ class Controlla():
         # input translation as a vector
         tram = [[0.0902489], [-0.0543889], [2.04997]]
         bottomrow = [0, 0, 0, 1]
-        # T = np.array([[rotm[0,0], rotm[0,1], rotm[0,2], tram[0][0]],
-        #      [rotm[1,0], rotm[1,1], rotm[1,2], tram[1][0]],
-        #      [rotm[2,0], rotm[2,1], rotm[2,2], tram[2][0]],
-        #      [bottomrow[0], bottomrow[1], bottomrow[2], bottomrow[3]]])
+        T = np.array([[rotm[0,0], rotm[0,1], rotm[0,2], tram[0][0]],
+             [rotm[1,0], rotm[1,1], rotm[1,2], tram[1][0]],
+             [rotm[2,0], rotm[2,1], rotm[2,2], tram[2][0]],
+             [bottomrow[0], bottomrow[1], bottomrow[2], bottomrow[3]]])
         # Tt = SE3(0.0902489, -0.0543889, 2.04997)
-        Tt = SE3(-0.265419,    -1.53025e-05,     1.3336,)
-        Tr = SE3.Eul(quat.as_euler('xyz', degrees=False))
-        T = Tt*Tr
-        print(T)
+        # Tt = SE3(-0.265419,    -1.53025e-05,     1.3336,)
+        # Tr = SE3.Eul(quat.as_euler('xyz', degrees=False))
+        # T = Tt*Tr
+        # print(T)
 
         # use new T to calculate ik
         # newt = SE3
